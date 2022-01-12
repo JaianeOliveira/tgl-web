@@ -1,0 +1,1 @@
+import yarn add styled-componentsfrom 'styled-components'
