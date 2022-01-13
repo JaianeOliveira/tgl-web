@@ -47,13 +47,20 @@ export const AuthPageLayout = styled.div`
   }
 `;
 
-export const SendButton = styled.button`
+export const SendButton = styled.button<{ color: string }>`
   background: none;
   border: none;
   font-size: 35px;
   font-weight: bold;
   font-style: italic;
-  color: #b5c401;
+  color: ${(props) => {
+    if (props.color === "green") {
+      return "#b5c401";
+    } else if (props.color === "greenCart") {
+      return "#27C383";
+    }
+    return "#707070";
+  }};
   padding: 10%;
   display: flex;
   justify-content: center;
@@ -61,7 +68,7 @@ export const SendButton = styled.button`
   cursor: pointer;
 
   .icon {
-    margin-left: 16px;
+    margin: 0 16px;
   }
 
   :hover {
