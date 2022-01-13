@@ -1,11 +1,16 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 
 const App = () => {
-  return <Login />;
+  const token = true;
+  return (
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={token ? <Home /> : <Navigate to="/" />} />
+    </Routes>
+  );
 };
 
 export default App;

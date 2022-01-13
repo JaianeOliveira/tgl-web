@@ -47,10 +47,13 @@ export const AuthPageLayout = styled.div`
   }
 `;
 
-export const SendButton = styled.button<{ color: string }>`
+export const SendButton = styled.button<{
+  color: string;
+  fontSize?: number | false;
+}>`
   background: none;
   border: none;
-  font-size: 35px;
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "35px")};
   font-weight: bold;
   font-style: italic;
   color: ${(props) => {
@@ -64,11 +67,12 @@ export const SendButton = styled.button<{ color: string }>`
   padding: 10%;
   display: flex;
   justify-content: center;
+  align-items: center;
   transition: 0.1s ease-in-out;
   cursor: pointer;
 
   .icon {
-    margin: 0 16px;
+    margin: 0 13px;
   }
 
   :hover {
@@ -76,5 +80,32 @@ export const SendButton = styled.button<{ color: string }>`
   }
   :active {
     filter: brightness(1.1);
+  }
+`;
+
+export const Header = styled.header`
+  display: flex;
+  padding: 0 10%;
+  align-items: center;
+  border-bottom: 2px solid #ebebeb;
+  height: 10vh;
+  justify-content: space-between;
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-right: 5vw;
+  }
+  .name div {
+    height: 7px;
+    border-radius: 6px;
+    width: auto;
+    background: #b5c401;
+  }
+
+  div {
+    display: flex;
+    margin-top: auto;
   }
 `;
