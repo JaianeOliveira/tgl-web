@@ -1,11 +1,13 @@
 import React from "react";
 import HeaderBar from "../Header/Header";
-
+import { Body } from "../../styles/ui";
+import FooterBar from "../Footer/Footer";
 const PrivateRoutesLayout = (props: any) => {
   return (
     <React.Fragment>
       <HeaderBar />
-      {props.children}
+      <Body>{props.children}</Body>
+      <FooterBar />
     </React.Fragment>
   );
 };

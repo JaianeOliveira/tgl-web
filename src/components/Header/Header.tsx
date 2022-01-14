@@ -1,6 +1,13 @@
 import { Title, Header, SendButton } from "../../styles/ui";
 import { VscArrowRight } from "react-icons/vsc";
+
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 const HeaderBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <Header>
       <div>
@@ -18,7 +25,15 @@ const HeaderBar = () => {
         <SendButton color="gray" fontSize={20}>
           Account
         </SendButton>
-        <SendButton color="gray" fontSize={20}>
+        <SendButton
+          color="gray"
+          fontSize={20}
+          onClick={() => {
+            localStorage.removeItem("token");
+            dispatch(logout());
+            navigate("/login");
+          }}
+        >
           Logout
           <VscArrowRight className="icon" size={28} />
         </SendButton>

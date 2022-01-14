@@ -10,12 +10,12 @@ export const Card = styled.div`
 
 export const Title = styled.h1<{
   fontSize: number;
-  textAlign: string;
+  textAlign?: string | false;
 }>`
   color: #707070;
   font-size: ${(props) => `${props.fontSize}px`};
   font-style: italic;
-  text-align: ${(props) => props.textAlign}; ;
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "left")}; ;
 `;
 
 export const AuthPageLayout = styled.div`
@@ -50,6 +50,7 @@ export const AuthPageLayout = styled.div`
 export const SendButton = styled.button<{
   color: string;
   fontSize?: number | false;
+  idPadding?: boolean | true;
 }>`
   background: none;
   border: none;
@@ -64,7 +65,7 @@ export const SendButton = styled.button<{
     }
     return "#707070";
   }};
-  padding: 10%;
+  padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,4 +109,50 @@ export const Header = styled.header`
     display: flex;
     margin-top: auto;
   }
+`;
+
+export const Body = styled.div`
+  padding: 6vh 10vw;
+  height: 80vh;
+`;
+
+export const Footer = styled.footer`
+  height: 10vh;
+  border-top: 2px solid #ebebeb;
+  color: #707070;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const GameButton = styled.button<{ color: string }>`
+  background: none;
+  border: 2px solid ${(props) => props.color};
+  color: ${(props) => props.color};
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: 100px;
+  padding: 7px 25px;
+  margin: 0 12.5px;
+  cursor: pointer;
+  :hover {
+    filter: brightness(1.1);
+  }
+  :active {
+    background: ${(props) => props.color};
+    color: #fff;
+  }
+`;
+
+export const P = styled.p<{
+  italic?: boolean | false;
+  fontSize?: number | false;
+  bold?: boolean | false;
+}>`
+  color: #868686;
+  font-style: ${(props) => (props.italic ? "italic" : "none")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "17px")};
+  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
 `;

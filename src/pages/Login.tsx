@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthCard, AuthInput, AuthPageLayout } from "../styles/auth";
 import { Title, SendButton } from "../styles/ui";
 import AuthPageTitle from "../components/AuthPageTitle/AuthPageTitle";
 
+import { RootState } from "../redux";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
+
+import { useNavigate } from "react-router-dom";
+
 import { VscArrowRight, VscArrowLeft } from "react-icons/vsc";
 
 import { postRequests } from "../services/api";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const nav = useNavigate();
-  //-----------------------------
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const authSelector = useSelector((state: RootState) => state.auth);
+  const [userData, setUserData] = useState(authSelector);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  // ------------------------------
-  // esse é um estado que precisa ser gerenciado pelo redux
-  const [userdata, setuserData] = useState([]);
+
   const [forgetPassword, setForgetPassword] = useState(false);
   const [registration, setRegistration] = useState(false);
-  // ------------------------------
+
+  useEffect(() => {
+    dispatch(login(userData));
+  }, [userData, dispatch]);
+
   const emailHandler = (e: any) => {
     setEmail(e.target.value);
   };
@@ -29,23 +40,19 @@ const Login = () => {
   const nameHandler = (e: any) => {
     setName(e.target.value);
   };
-  // ------------------------------
   const forgetPasswordHandler = (e: any) => {
     e.preventDefault();
     setForgetPassword(true);
   };
-  // ------------------------------
   const signupHandler = (e: any) => {
     e.preventDefault();
     setRegistration(true);
   };
-  // ------------------------------
   const sendLinkHandler = (e: any) => {
     e.preventDefault();
     postRequests("/reset", { email: email });
     setEmail("");
   };
-  // ------------------------------
   const loginHandler = (e: any) => {
     e.preventDefault();
     console.log(email);
@@ -53,8 +60,8 @@ const Login = () => {
     postRequests(
       "/login",
       { email: email, password: password },
-      setuserData,
-      nav
+      setUserData,
+      navigate
     );
     setEmail("");
     setPassword("");
@@ -68,7 +75,8 @@ const Login = () => {
         password: "secret",
         name: "Aristóteles",
       },
-      setuserData
+      setUserData,
+      navigate
     );
   };
 

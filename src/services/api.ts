@@ -20,10 +20,12 @@ export const postRequests = (
     .request(options)
     .then(function (response) {
       console.log(response.data);
-      console.log(response.data.token.token);
-      console.log(response.data.user.email);
-      console.log(response.data.user.name);
-      state(response.data);
+      state({
+        email: response.data.user.email,
+        user: response.data.user.name,
+        token: response.data.token.token,
+      });
+      localStorage.setItem("token", response.data.token.token);
     })
     .then(() => navigator("/home"))
     .catch(function (error) {
