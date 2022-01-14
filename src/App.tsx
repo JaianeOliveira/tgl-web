@@ -1,14 +1,23 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
+import { useSelector } from "react-redux";
+import { RootState } from "./redux";
+
 const App = () => {
-  const token = true;
+  const authSelector = useSelector((state: RootState) => state.auth);
+
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={token ? <Home /> : <Navigate to="/" />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/home"
+        element={
+          authSelector.token !== null ? <Home /> : <Navigate to="/login" />
+        }
+      />
     </Routes>
   );
 };
