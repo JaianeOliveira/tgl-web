@@ -3,11 +3,11 @@ import { VscArrowRight } from "react-icons/vsc";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const HeaderBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   return (
     <Header>
       <div>
@@ -17,9 +17,15 @@ const HeaderBar = () => {
           </Title>
           <div />
         </div>
-        <SendButton color="gray" fontSize={20}>
-          Home
-        </SendButton>
+        {location.pathname !== "/home" && (
+          <SendButton
+            color="gray"
+            fontSize={20}
+            onClick={() => navigate("/home")}
+          >
+            Home
+          </SendButton>
+        )}
       </div>
       <div>
         <SendButton color="gray" fontSize={20}>

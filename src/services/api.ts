@@ -94,3 +94,40 @@ export const newUser = async (data: {
       alert(error.response.data.error.message);
     });
 };
+
+export const getRecentGames = async (props: any) => {
+  return api
+    .request({
+      method: "GET",
+      url: "/bet/all-bets",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${props}`,
+      },
+    })
+    .then((response) => {
+      console.log("Recent Games");
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};
+
+//  const options = {
+//   method: 'GET',
+//   url: 'http://127.0.0.1:3333/bet/all-bets',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     Accept: 'application/json',
+//     Authorization: 'Bearer MTA4.6FwZ3FADLEos8SsZNZxQOhUl8Bful4n2hCau1a9QxAqH8NWUBjPEt7N6PLhv'
+//   }
+// };
+
+// axios.request(options).then(function (response) {
+//   console.log(response.data);
+// }).catch(function (error) {
+//   console.error(error);
+// });

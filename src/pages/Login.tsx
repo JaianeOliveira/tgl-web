@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AuthCard, AuthInput, AuthPageLayout } from "../styles/auth";
 import { Title, SendButton } from "../styles/ui";
 import AuthPageTitle from "../components/AuthPageTitle/AuthPageTitle";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/authSlice";
 import { useDispatch } from "react-redux";
-import { getGameData, loginFetch, newUser } from "../services/api";
+import { loginFetch, newUser } from "../services/api";
 import { VscArrowRight, VscArrowLeft } from "react-icons/vsc";
 import { postRequests } from "../services/api";
 
 const Login = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   getGameData().then((response) => dispatch(getData(response)));
-  // }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

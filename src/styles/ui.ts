@@ -150,8 +150,9 @@ export const P = styled.p<{
   italic?: boolean | false;
   fontSize?: number | false;
   bold?: boolean | false;
+  color?: string | false;
 }>`
-  color: #868686;
+  color: ${(props) => (props.color ? props.color : "#868686")};
   font-style: ${(props) => (props.italic ? "italic" : "none")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : "17px")};
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};

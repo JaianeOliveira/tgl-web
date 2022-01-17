@@ -7,13 +7,14 @@ import { useEffect } from "react";
 import { getData } from "./redux/gameSlice";
 import { useDispatch } from "react-redux";
 import { getGameData } from "./services/api";
+
 const App = () => {
   const authSelector = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getGameData().then((response) => dispatch(getData(response)));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
