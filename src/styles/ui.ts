@@ -113,7 +113,23 @@ export const Header = styled.header`
 
 export const Body = styled.div`
   padding: 6vh 10vw;
-  height: 80vh;
+  min-height: 80vh;
+  height: auto;
+  .gameArea {
+    max-width: 55vw;
+    margin-right: 5vw;
+
+    table {
+      margin: 30px 0;
+    }
+  }
+
+  .cartArea {
+  }
+
+  .bottomButtons {
+    display: flex;
+  }
 `;
 
 export const Footer = styled.footer`
@@ -124,26 +140,6 @@ export const Footer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const GameButton = styled.button<{ color: string }>`
-  background: none;
-  border: 2px solid ${(props) => props.color};
-  color: ${(props) => props.color};
-  font-size: 14px;
-  font-weight: bold;
-  font-style: italic;
-  border-radius: 100px;
-  padding: 7px 25px;
-  margin: 0 12.5px;
-  cursor: pointer;
-  :hover {
-    filter: brightness(1.1);
-  }
-  :active {
-    background: ${(props) => props.color};
-    color: #fff;
-  }
 `;
 
 export const P = styled.p<{

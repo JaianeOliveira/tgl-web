@@ -116,18 +116,3 @@ export const getRecentGames = async (props: any) => {
     });
 };
 
-//  const options = {
-//   method: 'GET',
-//   url: 'http://127.0.0.1:3333/bet/all-bets',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     Accept: 'application/json',
-//     Authorization: 'Bearer MTA4.6FwZ3FADLEos8SsZNZxQOhUl8Bful4n2hCau1a9QxAqH8NWUBjPEt7N6PLhv'
-//   }
-// };
-
-// axios.request(options).then(function (response) {
-//   console.log(response.data);
-// }).catch(function (error) {
-//   console.error(error);
-// });

@@ -1,5 +1,130 @@
 import styled from "styled-components";
-
+import { Card, Title } from "./ui";
 export const RecentGameDiv = styled.div<{ color: string }>`
   border-left: 6px solid ${(props) => props.color};
+`;
+
+export const NewBetTitle = styled.p`
+  font-size: 25px;
+  color: #707070;
+  font-style: italic;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 33px;
+  span {
+    font-weight: normal;
+  }
+`;
+
+// export const Pg = styled(P)`
+//   margin: 16.5px 0;
+// `;
+
+export const GameButton = styled.button<{ color: string }>`
+  background: none;
+  border: 2px solid ${(props) => props.color};
+  color: ${(props) => props.color};
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: 100px;
+  padding: 7px 25px;
+  margin: 0 25px 0 0;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  :hover {
+    filter: brightness(0.95);
+  }
+  :active {
+    background: ${(props) => props.color};
+    color: #fff;
+  }
+`;
+
+export const NumberButton = styled.button<{ color: string }>`
+  height: 65px;
+  width: 65px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  background: #adc0c4;
+  border-radius: 100%;
+  outline: none;
+  border: none;
+  margin: 12px 12px 12px 0;
+  transition: 0.13s ease-in-out;
+  cursor: pointer;
+
+  :hover {
+    background: ${(props) => props.color};
+  }
+  :active {
+    color: #fff;
+    background: ${(props) => props.color};
+  }
+`;
+
+export const CartElem = styled(Card)`
+  min-width: 317px;
+  max-height: 484px;
+  .cartArea {
+    padding: 30px 19px 40px 19px;
+  }
+  .itens {
+    margin: 40px 0;
+  }
+  .saveButton {
+    background: #f4f4f4;
+    padding: none;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
+
+export const CartTitle = styled(Title)`
+  text-transform: uppercase;
+  span {
+    font-weight: lighter;
+    font-style: normal;
+  }
+`;
+
+export const BottomButton = styled.button`
+  background: none;
+  border: 1px solid #27c383;
+  color: #27c383;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 16px 22px;
+  margin-right: 25px;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  :hover {
+    filter: brightness(0.95);
+  }
+`;
+
+export const AddToCartButton = styled.button`
+  border: none;
+  background: #27c383;
+  color: #fff;
+  padding: 16px 22px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-left: auto;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+
+  :hover {
+    filter: brightness(0.95);
+  }
+
+  .icon {
+    margin-right: 25px;
+    font-size: 24px;
+  }
 `;

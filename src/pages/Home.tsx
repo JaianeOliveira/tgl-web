@@ -1,13 +1,13 @@
 import PrivateRoutesLayout from "../components/PrivateRoutesLayout/PrivateRoutesLayout";
-import { Title, P, SendButton, GameButton } from "../styles/ui";
+import { Title, P, SendButton } from "../styles/ui";
 import { VscArrowRight } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import RecentGameItem from "../components/RecentGameItem/RecentGameItem";
 import { setRecentGames } from "../redux/recentGamesSlice";
 import { useEffect } from "react";
 import { getRecentGames } from "../services/api";
 import { useDispatch } from "react-redux";
+import GameSelect from "../components/GameSelect/GameSelect";
 
 const Home = () => {
   const gameData = useSelector((state) => state.game);
@@ -34,7 +34,7 @@ const Home = () => {
       >
         <div style={{ display: "flex" }}>
           <Title fontSize={24}>RECENT GAMES</Title>
-          {recentGames.length !== 0 && (
+          {true && (
             <div
               style={{
                 display: "flex",
@@ -43,12 +43,10 @@ const Home = () => {
                 marginLeft: 40,
               }}
             >
-              <P italic={true}>Filters</P>
-              {gameData.types.map((item) => (
-                <GameButton key={item.id} color={item.color}>
-                  {item.type}
-                </GameButton>
-              ))}
+              <P italic={true} style={{ marginRight: 15 }}>
+                Filters
+              </P>
+              <GameSelect />
             </div>
           )}
         </div>
