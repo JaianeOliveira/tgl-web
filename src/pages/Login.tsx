@@ -2,23 +2,20 @@ import React, { useEffect, useState } from "react";
 import { AuthCard, AuthInput, AuthPageLayout } from "../styles/auth";
 import { Title, SendButton } from "../styles/ui";
 import AuthPageTitle from "../components/AuthPageTitle/AuthPageTitle";
-
-import { RootState } from "../redux";
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../redux/authSlice";
-
 import { useNavigate } from "react-router-dom";
-
+import { login } from "../redux/authSlice";
+import { useDispatch } from "react-redux";
+import { getGameData, loginFetch, newUser } from "../services/api";
 import { VscArrowRight, VscArrowLeft } from "react-icons/vsc";
-
 import { postRequests } from "../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const authSelector = useSelector((state: RootState) => state.auth);
-  const [userData, setUserData] = useState(authSelector);
+  // useEffect(() => {
+  //   getGameData().then((response) => dispatch(getData(response)));
+  // }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +23,6 @@ const Login = () => {
 
   const [forgetPassword, setForgetPassword] = useState(false);
   const [registration, setRegistration] = useState(false);
-
-  useEffect(() => {
-    dispatch(login(userData));
-  }, [userData, dispatch]);
 
   const emailHandler = (e: any) => {
     setEmail(e.target.value);
@@ -53,31 +46,43 @@ const Login = () => {
     postRequests("/reset", { email: email });
     setEmail("");
   };
+
   const loginHandler = (e: any) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
-    postRequests(
-      "/login",
-      { email: email, password: password },
-      setUserData,
-      navigate
-    );
-    setEmail("");
-    setPassword("");
+    loginFetch({ email, password })
+      .then((response) => {
+        console.log(response);
+        dispatch(
+          login({
+            email: response.user.email,
+            user: response.user.name,
+            token: response.token.token,
+          })
+        );
+      })
+      .then(() => {
+        navigate("/home");
+        setPassword("");
+        setEmail("");
+      });
   };
   const registerHandler = (e: any) => {
     e.preventDefault();
-    postRequests(
-      "/user/create",
-      {
-        email: "ari@luby.com.br",
-        password: "secret",
-        name: "Aristóteles",
-      },
-      setUserData,
-      navigate
-    );
+    newUser({ email, password, name })
+      .then((response) => {
+        if (response.ok) {
+          loginFetch({ email, password }).then(() => {
+            dispatch(
+              login({
+                email: response.user.email,
+                user: response.user.name,
+                token: response.token.token,
+              })
+            );
+          });
+        }
+      })
+      .then(() => navigate("/home"));
   };
 
   return (
@@ -87,7 +92,7 @@ const Login = () => {
       </section>
       <section>
         {!forgetPassword && !registration && (
-          <React.Fragment>
+          <>
             <Title textAlign="center" fontSize={35}>
               Authentication
             </Title>
@@ -120,10 +125,10 @@ const Login = () => {
             <SendButton color="gray" onClick={signupHandler}>
               Sign Up <VscArrowRight className="icon" />
             </SendButton>
-          </React.Fragment>
+          </>
         )}
         {forgetPassword && (
-          <React.Fragment>
+          <>
             <Title textAlign="center" fontSize={35}>
               Reset Password
             </Title>
@@ -144,10 +149,10 @@ const Login = () => {
               <VscArrowLeft className="icon" />
               Back
             </SendButton>
-          </React.Fragment>
+          </>
         )}
         {registration && (
-          <React.Fragment>
+          <>
             <Title textAlign="center" fontSize={35}>
               Registration
             </Title>
@@ -179,7 +184,7 @@ const Login = () => {
             <SendButton color="gray" onClick={() => setRegistration(false)}>
               <VscArrowLeft className="icon" /> Back
             </SendButton>
-          </React.Fragment>
+          </>
         )}
       </section>
     </AuthPageLayout>

@@ -1,9 +1,13 @@
 import PrivateRoutesLayout from "../components/PrivateRoutesLayout/PrivateRoutesLayout";
-import { Title, P, SendButton } from "../styles/ui";
-import GameButtons from "../components/GameButtons/GameButtons";
+import { Title, P, SendButton, GameButton } from "../styles/ui";
 import { VscArrowRight } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const gameData = useSelector((state) => state.game);
+  const navigate = useNavigate();
+  console.log(gameData);
   return (
     <PrivateRoutesLayout>
       <div
@@ -24,10 +28,14 @@ const Home = () => {
             }}
           >
             <P italic={true}>Filters</P>
-            <GameButtons />
+            {gameData.types.map((item) => (
+              <GameButton key={item.id} color={item.color}>
+                {item.type}
+              </GameButton>
+            ))}
           </div>
         </div>
-        <SendButton color="green">
+        <SendButton color="green" onClick={() => navigate("/new-bet")}>
           New Bet <VscArrowRight className="icon" />
         </SendButton>
       </div>

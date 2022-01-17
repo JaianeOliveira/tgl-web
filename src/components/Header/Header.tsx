@@ -3,7 +3,7 @@ import { VscArrowRight } from "react-icons/vsc";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 const HeaderBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const HeaderBar = () => {
           onClick={() => {
             localStorage.removeItem("token");
             dispatch(logout());
-            navigate("/login");
+            document.location.reload();
           }}
         >
           Logout
