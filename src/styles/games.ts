@@ -41,7 +41,9 @@ export const GameButton = styled.button<{ color: string }>`
   }
 `;
 
-export const NumberButton = styled.button<{ color: string }>`
+export const NumberButton = styled.button<{
+  color: string;
+}>`
   height: 65px;
   width: 65px;
   color: #fff;
