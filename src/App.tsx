@@ -12,7 +12,9 @@ const App = () => {
   const authSelector = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
-    getGameData().then((response) => dispatch(getData(response)));
+    getGameData().then((response) => {
+      dispatch(getData(response));
+    });
   }, [dispatch]);
 
   return (

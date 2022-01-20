@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NumberButton } from "../../styles/games";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 };
 
 const TableNumbers = (props: Props) => {
+  const [active, setActive] = useState(false);
   return (
     <table>
       <tbody>

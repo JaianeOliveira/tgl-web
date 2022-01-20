@@ -1,16 +1,14 @@
-import { P, SendButton } from "../../styles/ui";
-import { CartElem, CartTitle } from "../../styles/games";
-import { VscArrowRight } from "react-icons/vsc";
-import { useSelector } from "react-redux";
-import CartItem from "../CartItem/CartItem";
+import { P, SendButton } from '../../styles/ui';
+import { CartElem, CartTitle } from '../../styles/games';
+import { VscArrowRight } from 'react-icons/vsc';
+import { useSelector } from 'react-redux';
+import CartItem from '../CartItem/CartItem';
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  let total = 0;
-  const cartTotal = () => {
-    cart.map((item) => total + item.price);
-  };
-  cartTotal();
+
+  const total = 0;
+
   return (
     <CartElem>
       <div className="cartArea">
@@ -31,7 +29,12 @@ const Cart = () => {
         </div>
         <CartTitle fontSize={25}>
           Cart <span>TOTAL: </span>
-          <span>R$ {total}</span>
+          <span>
+            {total.toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </span>
         </CartTitle>
       </div>
       <div className="saveButton">

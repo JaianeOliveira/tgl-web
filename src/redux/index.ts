@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./authSlice";
-import gameSlice from "./gameSlice";
-import recentGamesSlice from "./recentGamesSlice";
-import cartSlice from "./cartSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './authSlice';
+import gameSlice from './gameSlice';
+import recentGamesSlice from './recentGamesSlice';
+import cartSlice from './cartSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,

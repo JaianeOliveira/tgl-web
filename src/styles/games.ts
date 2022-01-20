@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Card, Title } from "./ui";
+import styled from 'styled-components';
+import { Card, Title } from './ui';
 export const RecentGameDiv = styled.div<{ color: string }>`
   border-left: 6px solid ${(props) => props.color};
 `;
@@ -34,16 +34,20 @@ export const GameButton = styled.button<{ color: string }>`
     color: #fff;
   }
 `;
-
-export const NumberButton = styled.button<{
+type NumberButtonTypes = {
   color: string;
-}>`
+  selected: boolean;
+};
+export const NumberButton = styled.button.attrs((props: NumberButtonTypes) => ({
+  color: props.color,
+  selected: props.selected,
+}))<NumberButtonTypes>`
   height: 65px;
   width: 65px;
   color: #fff;
   font-size: 20px;
   font-weight: bold;
-  background: #adc0c4;
+  background: ${(props) => (props.selected ? props.color : '#adc0c4')};
   border-radius: 100%;
   outline: none;
   border: none;
@@ -54,6 +58,7 @@ export const NumberButton = styled.button<{
   :hover {
     background: ${(props) => props.color};
   }
+
   :active {
     color: #fff;
     background: ${(props) => props.color};
@@ -74,7 +79,7 @@ export const CartElem = styled(Card)`
   }
   .saveButton {
     background: #f4f4f4;
-    padding: none;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,5 +1,5 @@
-import { Card } from "./ui";
-import styled from "styled-components";
+import { Card } from './ui';
+import styled from 'styled-components';
 
 export const AuthCard = styled(Card)`
   box-shadow: 0px 3px 25px #00000014;

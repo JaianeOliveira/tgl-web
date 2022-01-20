@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   background-color: #fff;
@@ -15,7 +15,7 @@ export const Title = styled.h1<{
   color: #707070;
   font-size: ${(props) => `${props.fontSize}px`};
   font-style: italic;
-  text-align: ${(props) => (props.textAlign ? props.textAlign : "left")}; ;
+  text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')}; ;
 `;
 
 export const AuthPageLayout = styled.div`
@@ -54,16 +54,16 @@ export const SendButton = styled.button<{
 }>`
   background: none;
   border: none;
-  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "35px")};
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : '35px')};
   font-weight: bold;
   font-style: italic;
   color: ${(props) => {
-    if (props.color === "green") {
-      return "#b5c401";
-    } else if (props.color === "greenCart") {
-      return "#27C383";
+    if (props.color === 'green') {
+      return '#b5c401';
+    } else if (props.color === 'greenCart') {
+      return '#27C383';
     }
-    return "#707070";
+    return '#707070';
   }};
   padding: 30px;
   display: flex;
@@ -150,10 +150,10 @@ export const P = styled.p<{
   bold?: boolean | false;
   color?: string | false;
 }>`
-  color: ${(props) => (props.color ? props.color : "#868686")};
-  font-style: ${(props) => (props.italic ? "italic" : "none")};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "17px")};
-  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+  color: ${(props) => (props.color ? props.color : '#868686')};
+  font-style: ${(props) => (props.italic ? 'italic' : 'none')};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : '17px')};
+  font-weight: ${(props) => (props.bold ? 'bold' : 'normal')};
 
   span {
     font-weight: normal;

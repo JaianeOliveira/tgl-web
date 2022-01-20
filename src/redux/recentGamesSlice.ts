@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const recentGameSlice = createSlice({
-  name: "recentGames",
+  name: 'recentGames',
   initialState: [],
   reducers: {
     setRecentGames(state, action) {

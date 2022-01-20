@@ -1,12 +1,12 @@
-import { Title, Header, SendButton, P } from "../../styles/ui";
-import { VscArrowRight } from "react-icons/vsc";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice";
-import { useNavigate, useLocation } from "react-router-dom";
-import Modal from "react-modal";
+import { Title, Header, SendButton, P } from '../../styles/ui';
+import { VscArrowRight } from 'react-icons/vsc';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/authSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Modal from 'react-modal';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const HeaderBar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -23,11 +23,11 @@ const HeaderBar = () => {
           </Title>
           <div />
         </div>
-        {location.pathname !== "/home" && (
+        {location.pathname !== '/home' && (
           <SendButton
             color="gray"
             fontSize={20}
-            onClick={() => navigate("/home")}
+            onClick={() => navigate('/home')}
           >
             Home
           </SendButton>
@@ -46,26 +46,26 @@ const HeaderBar = () => {
           onRequestClose={() => setModalIsOpen(false)}
           style={{
             overlay: {
-              position: "fixed",
+              position: 'fixed',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
             },
             content: {
-              position: "absolute",
-              top: "20%",
-              left: "20%",
-              border: "1px solid #ccc",
-              background: "#fff",
-              overflow: "auto",
-              WebkitOverflowScrolling: "touch",
-              borderRadius: "4px",
-              outline: "none",
-              padding: "20px",
-              height: "60vh",
-              width: "60vw",
+              position: 'absolute',
+              top: '20%',
+              left: '20%',
+              border: '1px solid #ccc',
+              background: '#fff',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px',
+              height: '60vh',
+              width: '60vw',
             },
           }}
         >
@@ -79,7 +79,7 @@ const HeaderBar = () => {
           color="gray"
           fontSize={20}
           onClick={() => {
-            localStorage.removeItem("token");
+            localStorage.removeItem('token');
             dispatch(logout());
             document.location.reload();
           }}

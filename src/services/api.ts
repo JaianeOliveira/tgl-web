@@ -1,7 +1,7 @@
-import { GameInfo } from "../types/type";
-import axios from "axios";
+import { GameInfo } from '../types/type';
+import axios from 'axios';
 export const api = axios.create({
-  baseURL: "http://127.0.0.1:3333",
+  baseURL: 'http://127.0.0.1:3333',
 });
 
 export const postRequests = (
@@ -11,11 +11,11 @@ export const postRequests = (
   navigator?: any
 ) => {
   const options: object = {
-    method: "POST",
+    method: 'POST',
     url: `http://127.0.0.1:3333${path}`,
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
     data: data,
   };
@@ -29,9 +29,9 @@ export const postRequests = (
         user: response.data.user.name,
         token: response.data.token.token,
       });
-      localStorage.setItem("token", response.data.token.token);
+      localStorage.setItem('token', response.data.token.token);
     })
-    .then(() => navigator("/home"))
+    .then(() => navigator('/home'))
     .catch(function (error) {
       alert(error.response.data.message);
     });
@@ -39,15 +39,15 @@ export const postRequests = (
 
 export const getRequests = (path: string, state?: any) => {
   const options: object = {
-    method: "GET",
+    method: 'GET',
     url: `http://127.0.0.1:3333${path}`,
-    headers: { Accept: "application/json" },
+    headers: { Accept: 'application/json' },
   };
 
   axios
     .request(options)
     .then(function (response) {
-      console.log("Response Data", response.data);
+      console.log('Response Data', response.data);
       state(response.data);
     })
     .catch(function (error) {
@@ -60,7 +60,7 @@ export const getGameData = async (): Promise<{
   types: GameInfo[];
 }> => {
   return api
-    .get<{ min_cart_value: number; types: GameInfo[] }>("/cart_games")
+    .get<{ min_cart_value: number; types: GameInfo[] }>('/cart_games')
     .then(({ data }) => {
       return data;
     });
@@ -68,10 +68,10 @@ export const getGameData = async (): Promise<{
 
 export const loginFetch = async (data: { email: string; password: string }) => {
   return api
-    .post("/login", data)
+    .post('/login', data)
     .then(({ data }) => {
       console.log(data);
-      localStorage.setItem("token", data.token.token);
+      localStorage.setItem('token', data.token.token);
       return data;
     })
     .catch((error) => {
@@ -86,7 +86,7 @@ export const newUser = async (data: {
   name: string;
 }) => {
   return api
-    .post("/user/create", data)
+    .post('/user/create', data)
     .then(({ data }) => {
       return data;
     })
@@ -98,16 +98,16 @@ export const newUser = async (data: {
 export const getRecentGames = async (props: any) => {
   return api
     .request({
-      method: "GET",
-      url: "/bet/all-bets",
+      method: 'GET',
+      url: '/bet/all-bets',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: `Bearer ${props}`,
       },
     })
     .then((response) => {
-      console.log("Recent Games");
+      console.log('Recent Games');
       console.log(response.data);
       return response.data;
     })
@@ -115,4 +115,3 @@ export const getRecentGames = async (props: any) => {
       console.log(error.response);
     });
 };
-

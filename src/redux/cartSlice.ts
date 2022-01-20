@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type CartItem = {
   id: number;
@@ -15,14 +15,14 @@ type Reducers = {
 
 const initialState: Cart = [];
 export const cartSlice = createSlice<Cart, Reducers>({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addItem: (state, action) => {
       state.push(action.payload);
     },
     removeItem: (state, action) => {
-      let id = state.findIndex((item) => item.id === action.payload.id);
+      const id = state.findIndex((item) => item.id === action.payload.id);
       state.splice(id, 1);
     },
   },

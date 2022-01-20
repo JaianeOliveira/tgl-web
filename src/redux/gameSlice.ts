@@ -1,5 +1,5 @@
-import { GameInfo } from "../types/type";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { GameInfo } from '../types/type';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = {
   min_cart_value: number | null;
@@ -17,7 +17,7 @@ const initialState = {
   types: [],
 };
 export const gameSlice = createSlice<State, Reducers>({
-  name: "game",
+  name: 'game',
   initialState,
   reducers: {
     getData(state, action) {
