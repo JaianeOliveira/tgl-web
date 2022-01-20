@@ -104,6 +104,8 @@ export const Header = styled.header`
     width: auto;
     background: #b5c401;
   }
+  .modal {
+  }
 
   div {
     display: flex;
@@ -152,4 +154,9 @@ export const P = styled.p<{
   font-style: ${(props) => (props.italic ? "italic" : "none")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : "17px")};
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+
+  span {
+    font-weight: normal;
+    color: #868686;
+  }
 `;

@@ -16,14 +16,8 @@ export const NewBetTitle = styled.p`
   }
 `;
 
-// export const Pg = styled(P)`
-//   margin: 16.5px 0;
-// `;
-
 export const GameButton = styled.button<{ color: string }>`
-  background: none;
   border: 2px solid ${(props) => props.color};
-  color: ${(props) => props.color};
   font-size: 14px;
   font-weight: bold;
   font-style: italic;
@@ -67,18 +61,24 @@ export const NumberButton = styled.button<{
 `;
 
 export const CartElem = styled(Card)`
-  min-width: 317px;
+  width: 317px;
   max-height: 484px;
+  overflow: hidden;
   .cartArea {
     padding: 30px 19px 40px 19px;
   }
   .itens {
     margin: 40px 0;
+    overflow-y: scroll;
+    max-height: 180px;
   }
   .saveButton {
     background: #f4f4f4;
     padding: none;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #e2e2e2;
     button {
       width: 100%;
     }
@@ -128,5 +128,37 @@ export const AddToCartButton = styled.button`
   .icon {
     margin-right: 25px;
     font-size: 24px;
+  }
+`;
+
+export const CartItemContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 32px;
+  min-height: 60px;
+
+  button {
+    width: 15%;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #888888;
+  }
+`;
+
+export const CartItemData = styled.div<{ color: string }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 85%;
+  border-radius: 4px;
+  border-left: 4px solid ${(props) => props.color};
+  padding: 13px;
+
+  p:first-child {
+    margin-bottom: 6px;
+    word-break: break-all;
+    white-space: pre-wrap;
   }
 `;

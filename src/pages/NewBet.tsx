@@ -1,18 +1,14 @@
 import PrivateRoutesLayout from "../components/PrivateRoutesLayout/PrivateRoutesLayout";
-import {
-  AddToCartButton,
-  BottomButton,
-  NewBetTitle,
-  NumberButton,
-} from "../styles/games";
+import { AddToCartButton, BottomButton, NewBetTitle } from "../styles/games";
 import { P } from "../styles/ui";
 import { useSelector } from "react-redux";
 import Cart from "../components/Cart/Cart";
-import GameSelect from "../components/GameSelect/GameSelect";
+import { GameButton } from "../styles/games";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { getGameData } from "../services/api";
 import { getData } from "../redux/gameSlice";
+import { addItem } from "../redux/cartSlice";
 import TableNumbers from "../components/TableNumbers/TableNumbers";
 
 import { useState, useEffect } from "react";
@@ -23,34 +19,41 @@ const NewBet = () => {
   }, [dispatch]);
 
   const gameData = useSelector((state) => state.game);
+  const [selectedGame, setSelectedGame] = useState("Mega-Sena");
   const arr: number[] = new Array(gameData.types[0].range).fill(0);
-  const [cart, setCart] = useState<{ values: number[] }[]>([
-    {
-      values: [1, 2, 3, 4, 5, 6, 7],
-    },
-  ]);
   const [selNumbers, setSelNumbers] = useState<number[]>([]);
-
+  const addToCart = () => {
+    if (selNumbers.length === gameData.types[0].max_number) {
+      dispatch(
+        addItem({
+          id: Math.floor(Math.random() * 10),
+          gameName: gameData.types[0].type,
+          price: gameData.types[0].price,
+          color: gameData.types[0].color,
+          bet: selNumbers,
+        })
+      );
+      setSelNumbers([]);
+    } else {
+      alert("Complete seu jogo");
+    }
+  };
   const addToArr = (e: any) => {
     if (
       selNumbers.length < gameData.types[0].max_number &&
       !selNumbers.includes(Number(e.currentTarget.value))
     ) {
-      // sel.push(Number(e.currentTarget.value));
-      // console.log(sel);
       e.currentTarget.style.backgroundColor = gameData.types[0].color;
       let value = Number(e.currentTarget.value);
       setSelNumbers((prevState) => [...prevState, value]);
-      console.log("arr", selNumbers);
     } else if (selNumbers.includes(Number(e.currentTarget.value))) {
       const newArr = selNumbers.filter(
         (item) => item !== Number(e.currentTarget.value)
       );
       e.currentTarget.style.backgroundColor = "#adc0c4";
       setSelNumbers(newArr);
-      console.log(selNumbers);
     } else {
-      console.log("array cheio");
+      alert("Quantidade máxima de números atingida");
     }
   };
 
@@ -65,7 +68,21 @@ const NewBet = () => {
             Choose a game
           </P>
           <div style={{ marginTop: 20, marginBottom: 28 }}>
-            <GameSelect />
+            {gameData.types.map((item) => (
+              <GameButton
+                key={item.id}
+                color={item.color}
+                onClick={() => setSelectedGame(item.type)}
+                style={{
+                  backgroundColor: `${
+                    selectedGame === item.type ? item.color : "inherit"
+                  }`,
+                  color: `${selectedGame === item.type ? "#FFF" : item.color}`,
+                }}
+              >
+                {item.type}
+              </GameButton>
+            ))}
           </div>
           <div>
             <P italic={true} bold={true} fontSize={17}>
@@ -82,19 +99,7 @@ const NewBet = () => {
             <div className="bottomButtons">
               <BottomButton>Complete Game</BottomButton>
               <BottomButton>Clear Game</BottomButton>
-              <AddToCartButton
-                onClick={() => {
-                  // isso não funciona
-                  setCart((prevState) => [
-                    ...prevState,
-                    {
-                      values: selNumbers,
-                    },
-                  ]);
-                  setSelNumbers([]);
-                  console.log(cart);
-                }}
-              >
+              <AddToCartButton onClick={addToCart}>
                 <AiOutlineShoppingCart className="icon" />
                 Add to cart
               </AddToCartButton>
@@ -103,11 +108,6 @@ const NewBet = () => {
         </section>
         <section className="cartArea">
           <Cart />
-          <div>
-            {cart.map((item) => (
-              <p>{item.values}</p>
-            ))}
-          </div>
         </section>
       </div>
     </PrivateRoutesLayout>
