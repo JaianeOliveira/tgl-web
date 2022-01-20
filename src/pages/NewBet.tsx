@@ -15,11 +15,7 @@ import { addItem } from '../redux/cartSlice';
 import { useState, useEffect } from 'react';
 import { GameInfo } from '../types/type';
 import { useNavigate } from 'react-router-dom';
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
+import { alertError, alertWarning } from '../components/Alerts/Alerts';
 
 const NewBet = () => {
   const navigate = useNavigate();
@@ -31,34 +27,12 @@ const NewBet = () => {
   );
   const [selNumbers, setSelNumbers] = useState<number[]>([]);
 
-  const alertWarning = (message: string) =>
-    toast.warn(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  const alertError = (message: string) =>
-    toast.error(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
   const clearGame = () => {
     setSelNumbers([]);
   };
 
   const completeGame = () => {
     if (!selectedGame) return;
-    console.log({ n: selectedGame.max_number });
     const newArr = [...selNumbers];
     while (newArr.length < selectedGame?.max_number) {
       const newNumber =
@@ -67,7 +41,6 @@ const NewBet = () => {
         newArr.push(newNumber);
       }
     }
-    console.log(newArr);
     setSelNumbers(newArr);
   };
 
@@ -83,6 +56,7 @@ const NewBet = () => {
       dispatch(
         addItem({
           id: new Date().getTime(),
+          game_id: selectedGame.id,
           gameName: selectedGame.type,
           price: selectedGame.price,
           color: selectedGame.color,
@@ -122,10 +96,6 @@ const NewBet = () => {
       alertError('Maximum amount reached');
     }
   };
-
-  useEffect(() => {
-    console.log({ selNumbers });
-  }, [selNumbers]);
 
   if (!selectedGame) {
     return (

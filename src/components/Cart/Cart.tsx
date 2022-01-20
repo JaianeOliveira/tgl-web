@@ -4,13 +4,29 @@ import { VscArrowRight } from 'react-icons/vsc';
 import { useSelector } from 'react-redux';
 import CartItem from '../CartItem/CartItem';
 import { useState } from 'react';
+import { getRecentGames, newBet } from '../../services/api';
+import { useDispatch } from 'react-redux';
+import { setRecentGames } from '../../redux/recentGamesSlice';
 
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  /*const [cartTotal, setCartTotal] = useState(
-    cart.map((item) => total + item.price)
-  );*/
+  const saveNewBet = () => {
+    const data: { game_id: number; numbers: number[] }[] = [];
+
+    cart.map(({ bet, game_id }) =>
+      data.push({
+        game_id: game_id,
+        numbers: bet,
+      })
+    );
+    if (token === null) {
+      return;
+    }
+    newBet(data, token).then((response) => console.log(response));
+  };
 
   return (
     <CartElem>
@@ -41,7 +57,7 @@ const Cart = () => {
         </CartTitle>
       </div>
       <div className="saveButton">
-        <SendButton color="greenCart">
+        <SendButton color="greenCart" onClick={saveNewBet}>
           Save <VscArrowRight className="icon" />
         </SendButton>
       </div>

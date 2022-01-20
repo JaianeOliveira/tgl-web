@@ -1,16 +1,19 @@
-import { Title, Header, SendButton, P } from '../../styles/ui';
-import { VscArrowRight } from 'react-icons/vsc';
+import { Title, Header, SendButton, P, SetAccount } from '../../styles/ui';
+import { VscArrowRight, VscEdit } from 'react-icons/vsc';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/authSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Modal from 'react-modal';
+import { AccountData } from '../../styles/ui';
 
 Modal.setAppElement('#root');
 
 const HeaderBar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const account = useSelector((state) => state.account);
+  const [isSetting, setIsSetting] = useState(false);
+  console.log('account', account);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,10 +73,39 @@ const HeaderBar = () => {
           }}
         >
           <Title fontSize={28}>Account</Title>
-          <div>
-            <P bold={true}>Username</P>
-            <P>fulanodital</P>
-          </div>
+          <AccountData>
+            <div className="profilePhoto">
+              <img
+                src={
+                  account.picture ||
+                  'https://luby-timesheet.azurewebsites.net/Content/neon/assets/images/thumb-1@2x.png'
+                }
+                alt="profileImg"
+              />
+            </div>
+
+            <div className="label">
+              <P fontSize={22} bold={true}>
+                {account.name}
+              </P>
+              <P>{account.email}</P>
+            </div>
+            <button onClick={() => setIsSetting(true)}>
+              <VscEdit />
+            </button>
+          </AccountData>
+          {isSetting && (
+            <SetAccount>
+              <input type="text" value={account.name} />
+              <input type="email" value={account.email} />
+              <button className="save" onClick={(e) => e.preventDefault()}>
+                Save
+              </button>
+              <button className="cancel" onClick={() => setIsSetting(false)}>
+                Cancel
+              </button>
+            </SetAccount>
+          )}
         </Modal>
         <SendButton
           color="gray"

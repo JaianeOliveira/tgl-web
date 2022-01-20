@@ -160,3 +160,69 @@ export const P = styled.p<{
     color: #868686;
   }
 `;
+
+export const AccountData = styled.div`
+  display: flex;
+  margin: 3vh 3vw;
+  img {
+    border-radius: 100%;
+    border: 1px solid #dddddd;
+    margin-right: 2vw;
+    height: 10vh;
+    aspect-ratio: 1 / 1;
+  }
+  .label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    p {
+      margin-bottom: 5px;
+    }
+  }
+  button {
+    background: none;
+    border: none;
+
+    color: #707070;
+    font-size: 18px;
+  }
+`;
+
+export const SetAccount = styled.form`
+  p {
+    font-weight: bold;
+  }
+  input {
+    font-size: 15px;
+    color: #707070;
+    height: 4vh;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ebebeb;
+    outline: none;
+    background: none;
+    margin-bottom: 2vh;
+  }
+
+  .save {
+    background: #27c383;
+  }
+  .cancel {
+    background: #df2a33;
+  }
+  button {
+    font-size: 15px;
+    height: 4vh;
+    width: 90px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-right: 1vw;
+    cursor: pointer;
+    :hover {
+      filter: brightness(1.05);
+    }
+  }
+`;

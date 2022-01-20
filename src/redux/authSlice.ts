@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = {
   email: string;
@@ -14,13 +14,13 @@ type Reducers = {
 };
 
 const initialState: State = {
-  email: "",
-  user: "",
-  token: localStorage.getItem("token"),
+  email: '',
+  user: '',
+  token: localStorage.getItem('token'),
 };
 
 export const authSlice = createSlice<State, Reducers>({
-  name: "auth",
+  name: 'auth',
   initialState: initialState,
   reducers: {
     login(state, action) {
@@ -30,7 +30,7 @@ export const authSlice = createSlice<State, Reducers>({
     },
     logout(state) {
       state = initialState;
-      console.log("Deslogado", state.token);
+      console.log('Deslogado', state.token);
     },
   },
 });

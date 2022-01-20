@@ -5,14 +5,17 @@ import AuthPageTitle from '../components/AuthPageTitle/AuthPageTitle';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
-import { loginFetch, newUser } from '../services/api';
+import { getRecentGames, loginFetch, newUser } from '../services/api';
 import { VscArrowRight, VscArrowLeft } from 'react-icons/vsc';
 import { postRequests } from '../services/api';
-
+import { myAccount } from '../services/api';
+import { updateUser } from '../redux/AccountSlice';
+import { useSelector } from 'react-redux';
+import { setRecentGames } from '../redux/recentGamesSlice';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const userData = useSelector((state) => state.auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -44,10 +47,12 @@ const Login = () => {
   };
 
   const loginHandler = (e: any) => {
+    let token = '';
     e.preventDefault();
     loginFetch({ email, password })
       .then((response) => {
         console.log(response);
+        token = response.token.token;
         dispatch(
           login({
             email: response.user.email,
@@ -55,6 +60,14 @@ const Login = () => {
             token: response.token.token,
           })
         );
+      })
+      .then(() => {
+        myAccount(token).then((response) => {
+          dispatch(updateUser(response));
+        });
+        getRecentGames(userData.token).then((response) => {
+          dispatch(setRecentGames(response));
+        });
       })
       .then(() => {
         navigate('/home');

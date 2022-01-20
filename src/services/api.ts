@@ -1,5 +1,8 @@
 import { GameInfo } from '../types/type';
 import axios from 'axios';
+
+import { alertError } from '../components/Alerts/Alerts';
+
 export const api = axios.create({
   baseURL: 'http://127.0.0.1:3333',
 });
@@ -76,7 +79,7 @@ export const loginFetch = async (data: { email: string; password: string }) => {
     })
     .catch((error) => {
       console.log(error.response);
-      alert(error.response.data.message);
+      alertError(error.response.data.message);
     });
 };
 
@@ -91,7 +94,7 @@ export const newUser = async (data: {
       return data;
     })
     .catch((error) => {
-      alert(error.response.data.error.message);
+      alertError(error.response.data.error.message);
     });
 };
 
@@ -107,11 +110,51 @@ export const getRecentGames = async (props: any) => {
       },
     })
     .then((response) => {
-      console.log('Recent Games');
       console.log(response.data);
       return response.data;
     })
     .catch((error) => {
-      console.log(error.response);
+      alertError(error.response.message);
     });
+};
+
+export const newBet = async (
+  data: { game_id: number; numbers: number[] }[],
+  userToken: string
+) => {
+  console.log({ games: data });
+  return api
+    .request({
+      method: 'POST',
+      url: '/bet/new-bet',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        games: data,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      alertError(error.response.data.message);
+    });
+};
+
+export const myAccount = async (token: string) => {
+  return api
+    .request({
+      method: 'GET',
+      url: '/user/my-account',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data);
 };
