@@ -7,23 +7,40 @@ type CartItem = {
   color: string;
   bet: number[];
 };
-type Cart = CartItem[];
+type Cart = {
+  cart: CartItem[];
+  total: number;
+};
 type Reducers = {
   addItem: (state: Cart, action: PayloadAction<CartItem>) => void;
-  removeItem: (state: Cart, action: PayloadAction<{ id: number }>) => void;
+  removeItem: (
+    state: Cart,
+    action: PayloadAction<{ id: number; price: number }>
+  ) => void;
 };
 
-const initialState: Cart = [];
+const initialState: Cart = {
+  cart: [],
+  total: 0,
+};
+
 export const cartSlice = createSlice<Cart, Reducers>({
   name: 'cart',
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.push(action.payload);
+      state.cart.push(action.payload);
+      state.total = state.total + action.payload.price;
     },
     removeItem: (state, action) => {
-      const id = state.findIndex((item) => item.id === action.payload.id);
-      state.splice(id, 1);
+      const index = state.cart.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (index === -1) {
+        return;
+      }
+      state.cart.splice(index, 1);
+      state.total = state.total - action.payload.price;
     },
   },
 });

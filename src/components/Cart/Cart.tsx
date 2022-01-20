@@ -3,11 +3,14 @@ import { CartElem, CartTitle } from '../../styles/games';
 import { VscArrowRight } from 'react-icons/vsc';
 import { useSelector } from 'react-redux';
 import CartItem from '../CartItem/CartItem';
+import { useState } from 'react';
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart);
+  const { cart, total } = useSelector((state) => state.cart);
 
-  const total = 0;
+  /*const [cartTotal, setCartTotal] = useState(
+    cart.map((item) => total + item.price)
+  );*/
 
   return (
     <CartElem>
@@ -19,7 +22,7 @@ const Cart = () => {
             cart.map((item, index) => (
               <CartItem
                 key={item.id}
-                id={index}
+                id={item.id}
                 gameName={item.gameName}
                 color={item.color}
                 price={item.price}

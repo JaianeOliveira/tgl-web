@@ -20,7 +20,7 @@ const NewBet = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const gameData = useSelector((state) => state.game);
-  const cart = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
   const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>(
     gameData.types.find((item) => item.type === 'Mega-Sena')
   );

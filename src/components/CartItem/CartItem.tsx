@@ -19,7 +19,7 @@ const CartItem = (props: Props) => {
     <CartItemContainer>
       <button
         onClick={() => {
-          dispatch(removeItem({ id: props.id }));
+          dispatch(removeItem({ id: props.id, price: props.price }));
         }}
       >
         <VscTrash size={24} />
