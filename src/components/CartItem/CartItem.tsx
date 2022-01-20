@@ -1,8 +1,8 @@
-import { VscTrash } from "react-icons/vsc";
-import { useDispatch } from "react-redux";
-import { removeItem } from "../../redux/cartSlice";
-import { CartItemContainer, CartItemData } from "../../styles/games";
-import { P } from "../../styles/ui";
+import { VscTrash } from 'react-icons/vsc';
+import { useDispatch } from 'react-redux';
+import { removeItem } from '../../redux/cartSlice';
+import { CartItemContainer, CartItemData } from '../../styles/games';
+import { P } from '../../styles/ui';
 
 type Props = {
   id: number;
@@ -29,7 +29,13 @@ const CartItem = (props: Props) => {
           {props.bet.toString()}
         </P>
         <P italic={true} bold={true} color={props.color}>
-          {props.gameName} <span>- R$ {props.price}</span>
+          {props.gameName}{' '}
+          <span>
+            {props.price.toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </span>
         </P>
       </CartItemData>
     </CartItemContainer>

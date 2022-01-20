@@ -11,11 +11,7 @@ import Cart from '../components/Cart/Cart';
 import { GameButton } from '../styles/games';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
-import { getGameData } from '../services/api';
-import { getData } from '../redux/gameSlice';
 import { addItem } from '../redux/cartSlice';
-import TableNumbers from '../components/TableNumbers/TableNumbers';
-
 import { useState, useEffect } from 'react';
 import { GameInfo } from '../types/type';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +20,7 @@ const NewBet = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const gameData = useSelector((state) => state.game);
+  const cart = useSelector((state) => state.cart);
   const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>(
     gameData.types.find((item) => item.type === 'Mega-Sena')
   );
@@ -49,17 +46,32 @@ const NewBet = () => {
   };
 
   const addToCart = () => {
-    if (selNumbers.length === selectedGame?.max_number) {
+    if (
+      selNumbers.length === selectedGame?.max_number &&
+      !cart.some(
+        (cartItem) =>
+          cartItem.bet.every((item) => selNumbers.includes(item)) &&
+          cartItem.gameName === selectedGame.type
+      )
+    ) {
       dispatch(
         addItem({
           id: new Date().getTime(),
           gameName: selectedGame.type,
           price: selectedGame.price,
           color: selectedGame.color,
-          bet: selNumbers,
+          bet: selNumbers.sort((a, b) => a - b),
         })
       );
       setSelNumbers([]);
+    } else if (
+      cart.some(
+        (cartItem) =>
+          cartItem.bet.every((item) => selNumbers.includes(item)) &&
+          cartItem.gameName === selectedGame?.type
+      )
+    ) {
+      alert('Você já fez esse jogo');
     } else {
       alert('Complete seu jogo');
     }
@@ -149,7 +161,7 @@ const NewBet = () => {
                       selected={selNumbers.includes(index + 1)}
                       onClick={addToArr}
                     >
-                      {index + 1 + 1}
+                      {index + 1}
                     </NumberButton>
                   ))}
                 </tr>
