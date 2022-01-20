@@ -17,7 +17,7 @@ const Cart = () => {
       <div className="cartArea">
         <CartTitle fontSize={25}>CART</CartTitle>
         <div className="itens">
-          {cart.length === 0 && <P italic={true}>Não há nada no carrinho</P>}
+          {cart.length === 0 && <P italic={true}>Empty cart</P>}
           {cart.length > 0 &&
             cart.map((item, index) => (
               <CartItem

@@ -16,6 +16,11 @@ import { useState, useEffect } from 'react';
 import { GameInfo } from '../types/type';
 import { useNavigate } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
+
 const NewBet = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +30,27 @@ const NewBet = () => {
     gameData.types.find((item) => item.type === 'Mega-Sena')
   );
   const [selNumbers, setSelNumbers] = useState<number[]>([]);
+
+  const alertWarning = (message: string) =>
+    toast.warn(message, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  const alertError = (message: string) =>
+    toast.error(message, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
   const clearGame = () => {
     setSelNumbers([]);
@@ -71,9 +97,9 @@ const NewBet = () => {
           cartItem.gameName === selectedGame?.type
       )
     ) {
-      alert('Você já fez esse jogo');
+      alertError('You already made that bet.');
     } else {
-      alert('Complete seu jogo');
+      alertWarning('Complete your game.');
     }
   };
 
@@ -93,7 +119,7 @@ const NewBet = () => {
       // e.currentTarget.style.backgroundColor = '#adc0c4';
       setSelNumbers(newArr);
     } else {
-      alert('Quantidade máxima de números atingida');
+      alertError('Maximum amount reached');
     }
   };
 
@@ -126,7 +152,10 @@ const NewBet = () => {
               <GameButton
                 key={item.id}
                 color={item.color}
-                onClick={() => setSelectedGame(item)}
+                onClick={() => {
+                  setSelectedGame(item);
+                  setSelNumbers([]);
+                }}
                 style={{
                   backgroundColor: `${
                     selectedGame?.type === item.type ? item.color : 'inherit'
