@@ -1,5 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+/*export const getRecentGames2 = createAsyncThunk('recentGames/get', {
+  async () => {
+
+}
+});*/
 type State = {
   choosen_numbers: string;
   created_at: string;
@@ -12,24 +17,16 @@ type State = {
   };
   user_id: number;
 }[];
-const initialState: State = [
-  {
-    choosen_numbers: '6,15,22,31,42,50',
-    created_at: '2022-01-20T16:39:42.000-03:00',
-    game_id: 7,
-    id: 1,
-    price: 4.5,
-    type: { id: 7, type: 'Mega-Sena' },
-    user_id: 1,
-  },
-];
+const initialState: State = [];
 
 export const recentGameSlice = createSlice({
   name: 'recentGames',
   initialState,
   reducers: {
     setRecentGames(state, action) {
-      state = action.payload;
+      state.splice(0, state.length);
+      state.push(...action.payload);
+      console.log('Recent Games: atualização do estado', state);
     },
   },
 });

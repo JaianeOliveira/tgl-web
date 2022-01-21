@@ -16,19 +16,19 @@ type Reducers = {
   updateUser: (state: State, action: PayloadAction<State>) => void;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const initialState: State = JSON.parse(localStorage.getItem('account')) || {
-  id: null,
+// JSON.parse(localStorage.getItem('account')) ||
+
+const initialState: State = {
+  bets: [],
+  created_at: '',
   email: '',
+  id: null,
   is_admin: null,
   name: '',
+  picture: null,
   token: '',
   token_created_at: '',
-  created_at: '',
   updated_at: '',
-  bets: [],
-  picture: null,
 };
 
 export const accountSlice = createSlice<State, Reducers>({
@@ -36,9 +36,18 @@ export const accountSlice = createSlice<State, Reducers>({
   initialState: initialState,
   reducers: {
     updateUser: (state, action) => {
-      state = action.payload;
-      localStorage.setItem('account', JSON.stringify(state));
-      console.log('Estado atualizado', state);
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      state.is_admin = action.payload.is_admin;
+      state.name = action.payload.name;
+      state.token = action.payload.token;
+      state.token_created_at = action.payload.token_created_at;
+      state.created_at = action.payload.created_at;
+      state.updated_at = action.payload.updated_at;
+      state.bets = action.payload.bets;
+      state.picture = action.payload.picture;
+      // localStorage.setItem('account', JSON.stringify(state));
+      console.log('Account: estado atualizado', state);
     },
   },
 });

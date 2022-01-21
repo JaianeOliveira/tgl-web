@@ -12,6 +12,7 @@ import { myAccount } from '../services/api';
 import { updateUser } from '../redux/AccountSlice';
 import { useSelector } from 'react-redux';
 import { setRecentGames } from '../redux/recentGamesSlice';
+import { alertError } from '../components/Alerts/Alerts';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,10 +47,10 @@ const Login = () => {
     setEmail('');
   };
 
-  const loginHandler = (e: any) => {
+  const loginHandler = async (e: any) => {
     let token = '';
     e.preventDefault();
-    loginFetch({ email, password })
+    await loginFetch({ email, password })
       .then((response) => {
         console.log(response);
         token = response.token.token;
@@ -61,18 +62,14 @@ const Login = () => {
           })
         );
       })
-      .then(() => {
-        myAccount(token).then((response) => {
-          dispatch(updateUser(response));
-        });
-        getRecentGames(userData.token).then((response) => {
-          dispatch(setRecentGames(response));
-        });
-      })
-      .then(() => {
-        navigate('/home');
+      .then(async () => {
         setPassword('');
         setEmail('');
+        console.log('Navegando pra home');
+        navigate('/home');
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
   const registerHandler = (e: any) => {

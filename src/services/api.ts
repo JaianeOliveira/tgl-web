@@ -73,12 +73,10 @@ export const loginFetch = async (data: { email: string; password: string }) => {
   return api
     .post('/login', data)
     .then(({ data }) => {
-      console.log(data);
       localStorage.setItem('token', data.token.token);
       return data;
     })
     .catch((error) => {
-      console.log(error.response);
       alertError(error.response.data.message);
     });
 };
@@ -98,7 +96,7 @@ export const newUser = async (data: {
     });
 };
 
-export const getRecentGames = async (props: any) => {
+export const getRecentGames = async (token: string) => {
   return api
     .request({
       method: 'GET',
@@ -106,11 +104,10 @@ export const getRecentGames = async (props: any) => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${props}`,
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
@@ -122,7 +119,6 @@ export const newBet = async (
   data: { game_id: number; numbers: number[] }[],
   userToken: string
 ) => {
-  console.log({ games: data });
   return api
     .request({
       method: 'POST',
@@ -137,7 +133,6 @@ export const newBet = async (
       },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
@@ -156,5 +151,8 @@ export const myAccount = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => response.data);
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => alertError(error.response.data.message));
 };
