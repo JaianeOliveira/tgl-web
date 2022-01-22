@@ -18,6 +18,7 @@ type Reducers = {
     state: Cart,
     action: PayloadAction<{ id: number; price: number }>
   ) => void;
+  clearCart: (state: Cart) => void;
 };
 
 const initialState: Cart = {
@@ -43,8 +44,12 @@ export const cartSlice = createSlice<Cart, Reducers>({
       state.cart.splice(index, 1);
       state.total = state.total - action.payload.price;
     },
+    clearCart: (state) => {
+      state.total = 0;
+      state.cart = [];
+    },
   },
 });
 
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

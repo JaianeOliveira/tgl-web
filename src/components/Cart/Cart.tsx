@@ -7,11 +7,15 @@ import { useState } from 'react';
 import { getRecentGames, newBet } from '../../services/api';
 import { useDispatch } from 'react-redux';
 import { setRecentGames } from '../../redux/recentGamesSlice';
+import { clearCart } from '../../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { alertSucess } from '../Alerts/Alerts';
 
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cart);
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const saveNewBet = () => {
     const data: { game_id: number; numbers: number[] }[] = [];
@@ -25,7 +29,15 @@ const Cart = () => {
     if (token === null) {
       return;
     }
-    newBet(data, token).then((response) => console.log(response));
+
+    newBet(data, token)
+      .then((response) => {
+        console.log('Jodo salvo');
+        dispatch(clearCart());
+        alertSucess('Saved bet!');
+        navigate('/home');
+      })
+      .catch((error) => console.error(error));
   };
 
   return (

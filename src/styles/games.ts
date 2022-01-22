@@ -56,7 +56,7 @@ export const NumberButton = styled.button.attrs((props: NumberButtonTypes) => ({
   cursor: pointer;
 
   :hover {
-    background: ${(props) => props.color};
+    filter: brightness(0.92);
   }
 
   :active {

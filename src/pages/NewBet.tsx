@@ -15,7 +15,11 @@ import { addItem } from '../redux/cartSlice';
 import { useState, useEffect } from 'react';
 import { GameInfo } from '../types/type';
 import { useNavigate } from 'react-router-dom';
-import { alertError, alertWarning } from '../components/Alerts/Alerts';
+import {
+  alertError,
+  alertWarning,
+  alertSucess,
+} from '../components/Alerts/Alerts';
 
 const NewBet = () => {
   const navigate = useNavigate();
@@ -79,19 +83,17 @@ const NewBet = () => {
 
   const addToArr = (e: any) => {
     if (!selectedGame) return;
-    if (
+
+    if (selNumbers.includes(Number(e.currentTarget.value))) {
+      setSelNumbers(
+        selNumbers.filter((item) => item !== Number(e.currentTarget.value))
+      );
+    } else if (
       selNumbers.length < selectedGame.max_number &&
       !selNumbers.includes(Number(e.currentTarget.value))
     ) {
-      // e.currentTarget.style.backgroundColor = selectedGame.color;
       const value = Number(e.currentTarget.value);
       setSelNumbers((prevState) => [...prevState, value]);
-    } else if (selNumbers.includes(Number(e.currentTarget.value))) {
-      const newArr = selNumbers.filter(
-        (item) => item !== Number(e.currentTarget.value)
-      );
-      // e.currentTarget.style.backgroundColor = '#adc0c4';
-      setSelNumbers(newArr);
     } else {
       alertError('Maximum amount reached');
     }
@@ -149,23 +151,19 @@ const NewBet = () => {
                   ?.description
               }
             </P>
-            <table>
-              <tbody>
-                <tr>
-                  {[...new Array(selectedGame?.range)].map((item, index) => (
-                    <NumberButton
-                      key={index + 1}
-                      value={index + 1}
-                      color={selectedGame?.color}
-                      selected={selNumbers.includes(index + 1)}
-                      onClick={addToArr}
-                    >
-                      {index + 1}
-                    </NumberButton>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              {[...new Array(selectedGame?.range)].map((item, index) => (
+                <NumberButton
+                  key={index + 1}
+                  value={index + 1}
+                  color={selectedGame?.color}
+                  selected={selNumbers.includes(index + 1)}
+                  onClick={addToArr}
+                >
+                  {index + 1}
+                </NumberButton>
+              ))}
+            </div>
             <div className="bottomButtons">
               <BottomButton onClick={completeGame}>Complete Game</BottomButton>
               <BottomButton onClick={clearGame}>Clear Game</BottomButton>
