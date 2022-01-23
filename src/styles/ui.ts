@@ -117,6 +117,11 @@ export const Body = styled.div`
   padding: 6vh 10vw;
   min-height: 80vh;
   height: auto;
+  .recentGames {
+    width: auto;
+    max-height: 60vh;
+    overflow-y: scroll;
+  }
   .gameArea {
     max-width: 55vw;
     margin-right: 5vw;

@@ -2,6 +2,16 @@ import styled from 'styled-components';
 import { Card, Title } from './ui';
 export const RecentGameDiv = styled.div<{ color: string }>`
   border-left: 6px solid ${(props) => props.color};
+  padding: 5px 15px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+
+  :after {
+    border-radius: 5px;
+  }
+  p {
+    margin-top: 11px;
+  }
 `;
 
 export const NewBetTitle = styled.p`

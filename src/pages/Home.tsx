@@ -9,6 +9,7 @@ import { getRecentGames, myAccount } from '../services/api';
 import { useDispatch } from 'react-redux';
 import GameSelect from '../components/GameSelect/GameSelect';
 import { updateUser } from '../redux/AccountSlice';
+import RecentGameItem from '../components/RecentGameItem/RecentGameItem';
 
 const Home = () => {
   const gameData = useSelector((state) => state.game);
@@ -62,12 +63,19 @@ const Home = () => {
           New Bet <VscArrowRight className="icon" />
         </SendButton>
       </div>
-      <div>
+      <div className="recentGames">
         {recentGames.length === 0 && (
           <P italic={true}>You have no recent games</P>
         )}
         {recentGames.length !== 0 &&
-          recentGames.map((item) => <P>{item.choosen_numbers}</P>)}
+          recentGames.map((item) => (
+            <RecentGameItem
+              numbers={item.choosen_numbers}
+              date={item.created_at}
+              price={item.price}
+              game={item.type.type}
+            />
+          ))}
       </div>
     </PrivateRoutesLayout>
   );
