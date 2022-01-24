@@ -9,6 +9,10 @@ import { updateUser } from '../redux/AccountSlice';
 import { alertError, alertSucess } from '../components/Alerts/Alerts';
 import { AuthCard, AuthInput, AuthPageLayout } from '../styles/auth';
 import { Title, SendButton } from '../styles/ui';
+import LoginForm from '../components/Forms/LoginForm';
+import ResetPassword from '../components/Forms/ResetPassword';
+import NewPassword from '../components/Forms/NewPassword';
+import Registration from '../components/Forms/Registration';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,6 +34,16 @@ const Login = () => {
 
   const nameHandler = (e: any) => {
     setName(e.target.value);
+  };
+
+  const setForgetPasswordHandler = (e: any) => {
+    e.preventDefault();
+    setForgetPassword(false);
+  };
+
+  const setRegistrationHandler = (e: any) => {
+    e.preventDefault();
+    setRegistration(false);
   };
 
   const forgetPasswordHandler = (e: any) => {
@@ -149,119 +163,54 @@ const Login = () => {
       </section>
       <section>
         {!forgetPassword && !registration && !resetPasswordToken && (
-          <>
-            <Title textAlign="center" fontSize={3.5}>
-              Authentication
-            </Title>
-            <form onSubmit={loginHandler}>
-              <AuthCard>
-                <AuthInput
-                  type="email"
-                  placeholder="Email"
-                  onChange={emailHandler}
-                  value={email}
-                />
-                <AuthInput
-                  type="password"
-                  placeholder="Password"
-                  onChange={passwordHandler}
-                  value={password}
-                />
-                <button
-                  type="button"
-                  className="forgetPassword"
-                  onClick={forgetPasswordHandler}
-                >
-                  I forget my password
-                </button>
-                <SendButton type="submit" color="green">
-                  Log In <VscArrowRight className="icon" />
-                </SendButton>
-              </AuthCard>
-            </form>
-            <SendButton color="gray" onClick={signupHandler}>
-              Sign Up <VscArrowRight className="icon" />
-            </SendButton>
-          </>
+          <LoginForm
+            loginHandler={loginHandler}
+            signupHandler={signupHandler}
+            passwordState={{
+              passwordHandler,
+              password,
+              forgetPasswordHandler,
+            }}
+            emailState={{
+              email,
+              emailHandler,
+            }}
+          />
         )}
         {forgetPassword && (
-          <>
-            <Title textAlign="center" fontSize={3.5}>
-              Reset Password
-            </Title>
-            <form>
-              <AuthCard>
-                <AuthInput
-                  type="email"
-                  placeholder="Email"
-                  onChange={emailHandler}
-                  value={email}
-                />
-                <SendButton color="green" onClick={sendLinkHandler}>
-                  Send Link <VscArrowRight className="icon" />
-                </SendButton>
-              </AuthCard>
-            </form>
-            <SendButton color="gray" onClick={() => setForgetPassword(false)}>
-              <VscArrowLeft className="icon" />
-              Back
-            </SendButton>
-          </>
+          <ResetPassword
+            emailState={{
+              emailHandler,
+              email,
+            }}
+            sendLinkHandler={sendLinkHandler}
+            setForgetPasswordHandler={setForgetPasswordHandler}
+          />
         )}
         {resetPasswordToken && (
-          <>
-            <Title textAlign="center" fontSize={3.5}>
-              Reset Password
-            </Title>
-            <form>
-              <AuthCard>
-                <AuthInput
-                  type="text"
-                  placeholder="New Password"
-                  onChange={passwordHandler}
-                  value={password}
-                />
-                <SendButton color="green" onClick={resetPasswordHandler}>
-                  Reset Password <VscArrowRight className="icon" />
-                </SendButton>
-              </AuthCard>
-            </form>
-          </>
+          <NewPassword
+            passwordHandler={passwordHandler}
+            password={password}
+            resetPasswordHandler={resetPasswordHandler}
+          />
         )}
         {registration && (
-          <>
-            <Title textAlign="center" fontSize={3.5}>
-              Registration
-            </Title>
-            <form>
-              <AuthCard>
-                <AuthInput
-                  type="text"
-                  placeholder="Name"
-                  onChange={nameHandler}
-                  value={name}
-                />
-                <AuthInput
-                  type="email"
-                  placeholder="Email"
-                  onChange={emailHandler}
-                  value={email}
-                />
-                <AuthInput
-                  type="password"
-                  placeholder="Password"
-                  onChange={passwordHandler}
-                  value={password}
-                />
-                <SendButton color="green" onClick={registerHandler}>
-                  Register <VscArrowRight className="icon" />
-                </SendButton>
-              </AuthCard>
-            </form>
-            <SendButton color="gray" onClick={() => setRegistration(false)}>
-              <VscArrowLeft className="icon" /> Back
-            </SendButton>
-          </>
+          <Registration
+            emailState={{
+              email,
+              emailHandler,
+            }}
+            nameState={{
+              name,
+              nameHandler,
+            }}
+            passwordState={{
+              password,
+              passwordHandler,
+            }}
+            registerHandler={registerHandler}
+            setRegistrationHandler={setRegistrationHandler}
+          />
         )}
       </section>
     </AuthPageLayout>
