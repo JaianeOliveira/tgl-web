@@ -1,6 +1,6 @@
-import { VscTrash } from 'react-icons/vsc';
 import { useDispatch } from 'react-redux';
 import { removeItem } from '../../redux/cartSlice';
+import { VscTrash } from 'react-icons/vsc';
 import { CartItemContainer, CartItemData } from '../../styles/games';
 import { P } from '../../styles/ui';
 

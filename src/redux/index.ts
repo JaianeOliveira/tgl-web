@@ -4,6 +4,7 @@ import gameSlice from './gameSlice';
 import recentGamesSlice from './recentGamesSlice';
 import cartSlice from './cartSlice';
 import accountSlice from './AccountSlice';
+
 const store = configureStore({
   reducer: {
     auth: authReducer,

@@ -1,14 +1,14 @@
 import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
-import { useSelector } from 'react-redux';
-import { P, Title, Card, SendButton } from '../styles/ui';
-import { UserData } from '../styles/auth';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setUser, myAccount } from '../services/api';
-import { useDispatch } from 'react-redux';
 import { updateUser } from '../redux/AccountSlice';
 import { VscEdit } from 'react-icons/vsc';
 import { alertError, alertSucess } from '../components/Alerts/Alerts';
+import { P, Card, SendButton } from '../styles/ui';
+import { UserData } from '../styles/auth';
+
 const Account = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

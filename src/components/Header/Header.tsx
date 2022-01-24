@@ -1,24 +1,10 @@
-import {
-  Title,
-  Header,
-  SendButton,
-  P,
-  SetAccount,
-  AccountData,
-} from '../../styles/ui';
-import { VscArrowRight, VscEdit } from 'react-icons/vsc';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../redux/authSlice';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root');
+import { logout } from '../../redux/authSlice';
+import { VscArrowRight } from 'react-icons/vsc';
+import { Title, Header, SendButton } from '../../styles/ui';
 
 const HeaderBar = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const account = useSelector((state) => state.account);
-  const [isSetting, setIsSetting] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

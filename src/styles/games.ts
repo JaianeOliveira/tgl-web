@@ -164,7 +164,6 @@ export const CartItemContainer = styled.div`
     outline: none;
     cursor: pointer;
     color: #888888;
-
     @media (max-width: 1017px) {
       width: 8%;
     }

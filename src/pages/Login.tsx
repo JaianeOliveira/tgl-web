@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
-import { AuthCard, AuthInput, AuthPageLayout } from '../styles/auth';
-import { Title, SendButton } from '../styles/ui';
+import { useState } from 'react';
 import AuthPageTitle from '../components/AuthPageTitle/AuthPageTitle';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/authSlice';
-import { useDispatch } from 'react-redux';
-import { getRecentGames, loginFetch, newUser } from '../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginFetch, newUser, sendLink, resetPassword } from '../services/api';
 import { VscArrowRight, VscArrowLeft } from 'react-icons/vsc';
-import { sendLink, resetPassword } from '../services/api';
-import { myAccount } from '../services/api';
 import { updateUser } from '../redux/AccountSlice';
-import { useSelector } from 'react-redux';
-import { setRecentGames } from '../redux/recentGamesSlice';
 import { alertError, alertSucess } from '../components/Alerts/Alerts';
+import { AuthCard, AuthInput, AuthPageLayout } from '../styles/auth';
+import { Title, SendButton } from '../styles/ui';
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -102,7 +98,6 @@ const Login = () => {
     e.preventDefault();
     await loginFetch({ email, password })
       .then((response) => {
-        console.log(response);
         token = response.token.token;
         dispatch(
           login({
@@ -115,11 +110,10 @@ const Login = () => {
       .then(async () => {
         setPassword('');
         setEmail('');
-        console.log('Navegando pra home');
         navigate('/home');
       })
       .catch((error) => {
-        console.error(error);
+        alertError(error.response.data.message);
       });
   };
 

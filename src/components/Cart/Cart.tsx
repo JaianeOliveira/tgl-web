@@ -1,15 +1,12 @@
-import { P, SendButton } from '../../styles/ui';
-import { CartElem, CartTitle } from '../../styles/games';
-import { VscArrowRight } from 'react-icons/vsc';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../CartItem/CartItem';
-import { useState } from 'react';
-import { getRecentGames, newBet } from '../../services/api';
-import { useDispatch } from 'react-redux';
-import { setRecentGames } from '../../redux/recentGamesSlice';
+import { newBet } from '../../services/api';
 import { clearCart } from '../../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { alertSucess } from '../Alerts/Alerts';
+import { alertError, alertSucess } from '../Alerts/Alerts';
+import { VscArrowRight } from 'react-icons/vsc';
+import { P, SendButton } from '../../styles/ui';
+import { CartElem, CartTitle } from '../../styles/games';
 
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cart);
@@ -32,12 +29,11 @@ const Cart = () => {
 
     newBet(data, token)
       .then((response) => {
-        console.log('Jodo salvo');
         dispatch(clearCart());
         alertSucess('Saved bet!');
         navigate('/home');
       })
-      .catch((error) => console.error(error));
+      .catch((error) => alertError(error.response.data.message));
   };
 
   return (

@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux';
 import { RecentGameDiv } from '../../styles/games';
 import { P, Title } from '../../styles/ui';
-import { useSelector } from 'react-redux';
+
 type Props = {
   numbers: string;
   date: string;

@@ -16,8 +16,6 @@ type Reducers = {
   updateUser: (state: State, action: PayloadAction<State>) => void;
 };
 
-// JSON.parse(localStorage.getItem('account')) ||
-
 const initialState: State = {
   bets: [],
   created_at: '',
@@ -46,8 +44,6 @@ export const accountSlice = createSlice<State, Reducers>({
       state.updated_at = action.payload.updated_at;
       state.bets = action.payload.bets;
       state.picture = action.payload.picture;
-      // localStorage.setItem('account', JSON.stringify(state));
-      console.log('Account: estado atualizado', state);
     },
   },
 });

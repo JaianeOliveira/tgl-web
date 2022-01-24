@@ -1,10 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-/*export const getRecentGames2 = createAsyncThunk('recentGames/get', {
-  async () => {
-
-}
-});*/
 type State = {
   choosen_numbers: string;
   created_at: string;
@@ -26,7 +21,6 @@ export const recentGameSlice = createSlice({
     setRecentGames(state, action) {
       state.splice(0, state.length);
       state.push(...action.payload);
-      console.log('Recent Games: atualização do estado', state);
     },
   },
 });

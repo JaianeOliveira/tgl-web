@@ -1,25 +1,20 @@
 import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { alertError, alertWarning } from '../components/Alerts/Alerts';
+import { addItem } from '../redux/cartSlice';
+import Cart from '../components/Cart/Cart';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { GameInfo } from '../types/type';
 import {
   AddToCartButton,
   BottomButton,
   NewBetTitle,
   NumberButton,
+  GameButton,
 } from '../styles/games';
 import { P } from '../styles/ui';
-import { useSelector } from 'react-redux';
-import Cart from '../components/Cart/Cart';
-import { GameButton } from '../styles/games';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../redux/cartSlice';
-import { useState, useEffect } from 'react';
-import { GameInfo } from '../types/type';
-import { useNavigate } from 'react-router-dom';
-import {
-  alertError,
-  alertWarning,
-  alertSucess,
-} from '../components/Alerts/Alerts';
 
 const NewBet = () => {
   const navigate = useNavigate();

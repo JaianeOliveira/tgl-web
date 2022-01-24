@@ -1,15 +1,14 @@
 import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
-import { Title, P, SendButton } from '../styles/ui';
 import { VscArrowRight } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setRecentGames } from '../redux/recentGamesSlice';
 import { useEffect, useState } from 'react';
 import { getRecentGames, myAccount } from '../services/api';
-import { useDispatch } from 'react-redux';
 import { updateUser } from '../redux/AccountSlice';
 import RecentGameItem from '../components/RecentGameItem/RecentGameItem';
 import { GameButton } from '../styles/games';
+import { Title, P, SendButton } from '../styles/ui';
 import { GameInfo } from '../types/type';
 
 const Home = () => {
@@ -20,19 +19,12 @@ const Home = () => {
   const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log('Recent Games em Home ', recentGames);
-  console.log('Account Games em Home ', account);
 
   useEffect(() => {
     getRecentGames(`${userData.token}`).then((response) => {
-      console.log(
-        'Recent Games na página de login antes do dispatch',
-        response
-      );
       dispatch(setRecentGames(response));
     });
     myAccount(`${userData.token}`).then((response) => {
-      console.log('account na página de login antes do dispatch', response);
       dispatch(updateUser(response));
     });
   }, [dispatch, userData.token]);
