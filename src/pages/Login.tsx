@@ -27,12 +27,15 @@ const Login = () => {
   const emailHandler = (e: any) => {
     setEmail(e.target.value);
   };
+
   const passwordHandler = (e: any) => {
     setPassword(e.target.value);
   };
+
   const nameHandler = (e: any) => {
     setName(e.target.value);
   };
+
   const forgetPasswordHandler = (e: any) => {
     e.preventDefault();
     setEmail('');
@@ -40,6 +43,7 @@ const Login = () => {
     setName('');
     setForgetPassword(true);
   };
+
   const signupHandler = (e: any) => {
     e.preventDefault();
     setEmail('');
@@ -47,28 +51,50 @@ const Login = () => {
     setName('');
     setRegistration(true);
   };
+
+  const emailValidator = (email: string) => {
+    const regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+  };
+
+  const passwordValidator = (password: string) => {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return regex.test(password);
+  };
+
   const sendLinkHandler = async (e: any) => {
     e.preventDefault();
-    await sendLink(email)
-      .then((response) => {
-        setResetPasswordToken(response.token);
-        setForgetPassword(false);
-        setEmail('');
-      })
-      .catch((error) => alertError(error.response.data.message));
+    if (emailValidator(email)) {
+      await sendLink(email)
+        .then((response) => {
+          setResetPasswordToken(response.token);
+          setForgetPassword(false);
+          setEmail('');
+        })
+        .catch((error) => alertError(error.response.data.message));
+    } else {
+      alertError('Digite um email válido.');
+    }
   };
+
   const resetPasswordHandler = async (e: any) => {
     e.preventDefault();
-    await resetPassword(resetPasswordToken, password)
-      .then(async (response) => {
-        await dispatch(updateUser(response));
-        setResetPasswordToken('');
-        setPassword('');
-        alertSucess('Senha alterada com sucesso');
-      })
-      .catch((error) => {
-        alertError(error.response.data.message);
-      });
+    if (passwordValidator(password)) {
+      await resetPassword(resetPasswordToken, password)
+        .then(async (response) => {
+          await dispatch(updateUser(response));
+          setResetPasswordToken('');
+          setPassword('');
+          alertSucess('Senha alterada com sucesso');
+        })
+        .catch((error) => {
+          alertError(error.response.data.message);
+        });
+    } else {
+      alertError(
+        'Digite uma senha válida. É necessário pelo menos oito caracteres sendo eles pelo menos um número e uma letra.'
+      );
+    }
   };
 
   const loginHandler = async (e: any) => {
@@ -96,19 +122,30 @@ const Login = () => {
         console.error(error);
       });
   };
+
   const registerHandler = (e: any) => {
     e.preventDefault();
-    newUser({ email, password, name })
-      .then(() => {
-        alertSucess('Usuário criado com sucesso');
-        setEmail('');
-        setPassword('');
-        setName('');
-        setRegistration(false);
-      })
-      .catch((error) => {
-        alertError(error.reponse.data.message);
-      });
+    if (emailValidator(email)) {
+      if (passwordValidator(password)) {
+        newUser({ email, password, name })
+          .then(() => {
+            alertSucess('Usuário criado com sucesso');
+            setEmail('');
+            setPassword('');
+            setName('');
+            setRegistration(false);
+          })
+          .catch((error) => {
+            alertError(error.reponse.data.message);
+          });
+      } else {
+        alertError(
+          'Digite uma senha válida. É necessário pelo menos oito dígitos sendo pelo menos um número e uma letra.'
+        );
+      }
+    } else {
+      alertError('Digite um email válido');
+    }
   };
 
   return (

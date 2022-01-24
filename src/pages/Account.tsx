@@ -8,7 +8,7 @@ import { setUser, myAccount } from '../services/api';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../redux/AccountSlice';
 import { VscEdit } from 'react-icons/vsc';
-import { alertSucess } from '../components/Alerts/Alerts';
+import { alertError, alertSucess } from '../components/Alerts/Alerts';
 const Account = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,21 +17,28 @@ const Account = () => {
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(account.name);
   const [email, setEmail] = useState(account.email);
-
   const date = new Date(account.created_at);
+
+  const emailValidator = (email: string) => {
+    const regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+  };
+
   const created_at = `${date.getDate()} / ${
     date.getMonth() + 1
   } ${date.getFullYear()}`;
-  console.log(date.toLocaleDateString());
 
   const setMyUser = async (e: any) => {
     e.preventDefault();
     if (userData.token) {
-      const response = await setUser({ email, name }, userData.token);
-      await dispatch(updateUser(response));
-      setEdit(false);
-
-      alertSucess('Dados alterados com sucesso');
+      if (emailValidator(email)) {
+        const response = await setUser({ email, name }, userData.token);
+        await dispatch(updateUser(response));
+        setEdit(false);
+        alertSucess('Dados alterados com sucesso');
+      } else {
+        alertError('Digite um email válido.');
+      }
     }
   };
 
