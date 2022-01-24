@@ -43,7 +43,7 @@ const Cart = () => {
   return (
     <CartElem>
       <div className="cartArea">
-        <CartTitle fontSize={25}>CART</CartTitle>
+        <CartTitle fontSize={2.5}>CART</CartTitle>
         <div className="itens">
           {cart.length === 0 && <P italic={true}>Empty cart</P>}
           {cart.length > 0 &&
@@ -58,7 +58,7 @@ const Cart = () => {
               />
             ))}
         </div>
-        <CartTitle fontSize={25}>
+        <CartTitle fontSize={2.5}>
           Cart <span>TOTAL: </span>
           <span>
             {total.toLocaleString('pt-br', {

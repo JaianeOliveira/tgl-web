@@ -19,11 +19,11 @@ const RecentGameItem = (props: Props) => {
   });
   return (
     <RecentGameDiv color={color}>
-      <Title fontSize={20}>{props.numbers}</Title>
+      <Title fontSize={2.0}>{props.numbers}</Title>
       <P>
         {data.toLocaleDateString()} - {`(${price})`}
       </P>
-      <P bold={true} fontSize={20} italic={true} color={color}>
+      <P bold={true} fontSize={2.0} italic={true} color={color}>
         {props.game}
       </P>
     </RecentGameDiv>

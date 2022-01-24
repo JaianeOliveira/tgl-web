@@ -6,11 +6,12 @@ export const RecentGameDiv = styled.div<{ color: string }>`
   margin-bottom: 25px;
   border-radius: 5px;
 
-  :after {
-    border-radius: 5px;
-  }
   p {
     margin-top: 11px;
+  }
+  h1:first-child {
+    word-break: break-all;
+    white-space: pre-wrap;
   }
 `;
 
@@ -76,9 +77,13 @@ export const NumberButton = styled.button.attrs((props: NumberButtonTypes) => ({
 `;
 
 export const CartElem = styled(Card)`
-  width: 317px;
+  width: 31vw;
   max-height: 484px;
   overflow: hidden;
+  @media (max-width: 1017px) {
+    margin-top: 5vh;
+    width: 100%;
+  }
   .cartArea {
     padding: 30px 19px 40px 19px;
   }
@@ -159,6 +164,10 @@ export const CartItemContainer = styled.div`
     outline: none;
     cursor: pointer;
     color: #888888;
+
+    @media (max-width: 1017px) {
+      width: 8%;
+    }
   }
 `;
 

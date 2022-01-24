@@ -13,38 +13,9 @@ export const Title = styled.h1<{
   textAlign?: string | false;
 }>`
   color: #707070;
-  font-size: ${(props) => `${props.fontSize}px`};
+  font-size: ${(props) => `${props.fontSize}rem`};
   font-style: italic;
-  text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')}; ;
-`;
-
-export const AuthPageLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-
-  section {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    .for {
-      background-color: #b5c401;
-      border-radius: 100px;
-      height: 39px;
-      width: 144px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-style: italic;
-      margin: 26px 0 26px 0;
-    }
-  }
+  text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')};
 `;
 
 export const SendButton = styled.button<{
@@ -53,8 +24,9 @@ export const SendButton = styled.button<{
   idPadding?: boolean | true;
 }>`
   background: none;
+  width: auto;
   border: none;
-  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : '35px')};
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}rem` : '3.5rem')};
   font-weight: bold;
   font-style: italic;
   color: ${(props) => {
@@ -83,6 +55,10 @@ export const SendButton = styled.button<{
   :active {
     filter: brightness(1.1);
   }
+
+  @media (max-width: 426px) {
+    padding-left: 0;
+  }
 `;
 
 export const Header = styled.header`
@@ -91,7 +67,26 @@ export const Header = styled.header`
   align-items: center;
   border-bottom: 2px solid #ebebeb;
   justify-content: space-between;
-  max-height: 15vh;
+  height: auto;
+  flex-wrap: wrap;
+
+  @media (max-width: 426px) {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 3vh;
+
+    button {
+      padding-left: 0;
+      font-size: 1.9rem;
+    }
+  }
+
+  @media (max-width: 376px) {
+    button {
+      font-size: 1.5rem;
+      padding-right: 5vw;
+    }
+  }
 
   .name {
     display: flex;
@@ -109,13 +104,67 @@ export const Header = styled.header`
   div {
     display: flex;
     margin-top: auto;
+    flex-wrap: wrap;
   }
 `;
 
 export const Body = styled.div`
-  padding: 6vh 10vw;
   min-height: 80vh;
   height: auto;
+  padding: 6vh 10vw;
+
+  .newBet_page {
+    display: flex;
+
+    @media (max-width: 1017px) {
+      flex-direction: column;
+      section {
+        width: 100%;
+      }
+    }
+  }
+  .home_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    @media (max-width: 1204px) {
+      justify-content: space-evenly;
+      margin-bottom: 5vh;
+    }
+
+    @media (max-width: 426px) {
+      justify-content: flex-start;
+    }
+  }
+  .filter_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+    flex-wrap: wrap;
+    width: auto;
+
+    @media (max-width: 880px) {
+      margin-top: 4vh;
+    }
+    @media (max-width: 426px) {
+      margin-left: 0px;
+      justify-content: flex-start;
+
+      p {
+        margin-bottom: 2vh;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 2vh;
+        flex: 1 1;
+      }
+    }
+  }
   .recentGames {
     width: auto;
   }
@@ -140,7 +189,7 @@ export const Footer = styled.footer`
   height: 10vh;
   border-top: 2px solid #ebebeb;
   color: #707070;
-  font-size: 15px;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,7 +203,7 @@ export const P = styled.p<{
 }>`
   color: ${(props) => (props.color ? props.color : '#868686')};
   font-style: ${(props) => (props.italic ? 'italic' : 'none')};
-  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : '17px')};
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}rem` : '1.7rem')};
   font-weight: ${(props) => (props.bold ? 'bold' : 'normal')};
 
   span {
@@ -187,7 +236,7 @@ export const AccountData = styled.div`
     border: none;
 
     color: #707070;
-    font-size: 18px;
+    font-size: 1.8rem;
   }
 `;
 
@@ -196,7 +245,7 @@ export const SetAccount = styled.form`
     font-weight: bold;
   }
   input {
-    font-size: 15px;
+    font-size: 1.5rem;
     color: #707070;
     height: 4vh;
     width: 100%;
@@ -215,7 +264,7 @@ export const SetAccount = styled.form`
     background: #df2a33;
   }
   button {
-    font-size: 15px;
+    font-size: 1.5rem;
     height: 4vh;
     width: 90px;
     color: #fff;

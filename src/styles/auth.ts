@@ -24,15 +24,51 @@ export const AuthCard = styled(Card)`
     :active {
       filter: brightness(1.1);
     }
+    @media (max-width: 376px) {
+      width: 70vw;
+    }
   }
 `;
 export const AuthPageLayout = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  padding: 6vw 6vh;
+  justify-content: space-evenly;
+  @media (max-width: 1058px) {
+    flex-direction: column;
+  }
 
+  @media (max-width: 426px) {
+    section:first-child {
+      h1:first-child {
+        font-size: 6rem;
+      }
+      h1:last-child {
+        font-size: 7.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 376px) {
+    section:first-child {
+      h1:first-child {
+        font-size: 5.5rem;
+      }
+      h1:last-child {
+        font-size: 6.8rem;
+      }
+    }
+  }
+  @media (max-width: 321px) {
+    section:first-child {
+      h1:first-child {
+        font-size: 5rem;
+      }
+      h1:last-child {
+        font-size: 6rem;
+      }
+    }
+  }
   section {
-    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,6 +87,10 @@ export const AuthPageLayout = styled.div`
       font-weight: bold;
       font-style: italic;
       margin: 26px 0 26px 0;
+    }
+
+    @media (max-width: 1058px) {
+      margin-bottom: 10vh;
     }
   }
 `;
@@ -97,10 +137,10 @@ export const UserData = styled.div`
     border-radius: 10px;
     box-shadow: 0px 3px 25px #00000014;
     font-size: 16px;
-    padding: 10px;
+    padding: 10px 30px;
     display: flex;
     justify-content: space-evenly;
-    width: 10vw;
+    width: auto;
     margin-top: 5vh;
     cursor: pointer;
   }
@@ -112,6 +152,13 @@ export const UserData = styled.div`
     flex-direction: column;
     padding: 20px;
 
+    button {
+      padding: 2vh 0;
+
+      @media (max-width: 425px) {
+        font-size: 1.6rem;
+      }
+    }
     input {
       color: #9d9d9d;
       font-size: 16px;

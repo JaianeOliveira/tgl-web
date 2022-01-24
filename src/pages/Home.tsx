@@ -36,53 +36,39 @@ const Home = () => {
       dispatch(updateUser(response));
     });
   }, [dispatch, userData.token]);
+
   return (
     <PrivateRoutesLayout>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ display: 'flex' }}>
-          <Title fontSize={24}>RECENT GAMES</Title>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginLeft: 40,
-            }}
-          >
-            <P italic={true} style={{ marginRight: 15 }}>
-              Filters
-            </P>
-            <div>
-              {gameData.types.map((item) => (
-                <GameButton
-                  key={item.id}
-                  color={item.color}
-                  onClick={() => {
-                    if (selectedGame?.type === item.type) {
-                      setSelectedGame(undefined);
-                    } else {
-                      setSelectedGame(item);
-                    }
-                  }}
-                  style={{
-                    backgroundColor: `${
-                      selectedGame?.type === item.type ? item.color : 'inherit'
-                    }`,
-                    color: `${
-                      selectedGame?.type === item.type ? '#FFF' : item.color
-                    }`,
-                  }}
-                >
-                  {item.type}
-                </GameButton>
-              ))}
-            </div>
+      <div className="home_header">
+        <Title fontSize={2.4}>RECENT GAMES</Title>
+        <div className="filter_div">
+          <P italic={true} style={{ marginRight: 15 }}>
+            Filters
+          </P>
+          <div>
+            {gameData.types.map((item) => (
+              <GameButton
+                key={item.id}
+                color={item.color}
+                onClick={() => {
+                  if (selectedGame?.type === item.type) {
+                    setSelectedGame(undefined);
+                  } else {
+                    setSelectedGame(item);
+                  }
+                }}
+                style={{
+                  backgroundColor: `${
+                    selectedGame?.type === item.type ? item.color : 'inherit'
+                  }`,
+                  color: `${
+                    selectedGame?.type === item.type ? '#FFF' : item.color
+                  }`,
+                }}
+              >
+                {item.type}
+              </GameButton>
+            ))}
           </div>
         </div>
         <SendButton color="green" onClick={() => navigate('/new-bet')}>

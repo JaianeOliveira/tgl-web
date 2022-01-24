@@ -24,27 +24,25 @@ const HeaderBar = () => {
   const location = useLocation();
   return (
     <Header>
+      <div className="name">
+        <Title textAlign="center" fontSize={4.4}>
+          TGL
+        </Title>
+        <div />
+      </div>
       <div>
-        <div className="name">
-          <Title textAlign="center" fontSize={44}>
-            TGL
-          </Title>
-          <div />
-        </div>
         {location.pathname !== '/home' && (
           <SendButton
             color="gray"
-            fontSize={20}
+            fontSize={2}
             onClick={() => navigate('/home')}
           >
             Home
           </SendButton>
         )}
-      </div>
-      <div>
         <SendButton
           color="gray"
-          fontSize={20}
+          fontSize={2}
           onClick={() => navigate('/account')}
         >
           Account
@@ -52,7 +50,7 @@ const HeaderBar = () => {
 
         <SendButton
           color="gray"
-          fontSize={20}
+          fontSize={2}
           onClick={() => {
             localStorage.removeItem('token');
             dispatch(logout());

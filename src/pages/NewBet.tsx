@@ -107,12 +107,12 @@ const NewBet = () => {
 
   return (
     <PrivateRoutesLayout>
-      <div style={{ display: 'flex' }}>
+      <div className="newBet_page">
         <section className="gameArea">
           <NewBetTitle>
             NEW BET <span>FOR {selectedGame?.type}</span>
           </NewBetTitle>
-          <P italic={true} bold={true} fontSize={17}>
+          <P italic={true} bold={true} fontSize={1.7}>
             Choose a game
           </P>
           <div style={{ marginTop: 20, marginBottom: 28 }}>
@@ -138,10 +138,10 @@ const NewBet = () => {
             ))}
           </div>
           <div>
-            <P italic={true} bold={true} fontSize={17}>
+            <P italic={true} bold={true} fontSize={1.7}>
               Fill your bet
             </P>
-            <P style={{ marginTop: 10 }} italic={true} fontSize={17}>
+            <P style={{ marginTop: 10 }} italic={true} fontSize={1.7}>
               {
                 gameData.types.find((item) => item.type === selectedGame?.type)
                   ?.description

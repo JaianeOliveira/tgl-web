@@ -56,10 +56,10 @@ const Account = () => {
         ) : (
           <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
         )}
-        <P bold={true} fontSize={25}>
+        <P bold={true} fontSize={2.5}>
           {account.name}
         </P>
-        <P fontSize={18}>{account.email}</P>
+        <P fontSize={1.8}>{account.email}</P>
         <P>Entrou em {date.toLocaleDateString()}</P>
         {!edit && (
           <button className="edit_userData" onClick={() => setEdit(true)}>
@@ -81,11 +81,11 @@ const Account = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <SendButton type="submit" fontSize={28} color="green">
+              <SendButton type="submit" fontSize={2.8} color="green">
                 Save
               </SendButton>
               <SendButton
-                fontSize={24}
+                fontSize={2.4}
                 color="gray"
                 onClick={() => setEdit(false)}
               >

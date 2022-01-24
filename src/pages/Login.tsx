@@ -156,7 +156,7 @@ const Login = () => {
       <section>
         {!forgetPassword && !registration && !resetPasswordToken && (
           <>
-            <Title textAlign="center" fontSize={35}>
+            <Title textAlign="center" fontSize={3.5}>
               Authentication
             </Title>
             <form onSubmit={loginHandler}>
@@ -192,7 +192,7 @@ const Login = () => {
         )}
         {forgetPassword && (
           <>
-            <Title textAlign="center" fontSize={35}>
+            <Title textAlign="center" fontSize={3.5}>
               Reset Password
             </Title>
             <form>
@@ -216,7 +216,7 @@ const Login = () => {
         )}
         {resetPasswordToken && (
           <>
-            <Title textAlign="center" fontSize={35}>
+            <Title textAlign="center" fontSize={3.5}>
               Reset Password
             </Title>
             <form>
@@ -236,7 +236,7 @@ const Login = () => {
         )}
         {registration && (
           <>
-            <Title textAlign="center" fontSize={35}>
+            <Title textAlign="center" fontSize={3.5}>
               Registration
             </Title>
             <form>
