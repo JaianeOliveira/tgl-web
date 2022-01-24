@@ -4,18 +4,20 @@ import { VscArrowRight } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { setRecentGames } from '../redux/recentGamesSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getRecentGames, myAccount } from '../services/api';
 import { useDispatch } from 'react-redux';
-import GameSelect from '../components/GameSelect/GameSelect';
 import { updateUser } from '../redux/AccountSlice';
 import RecentGameItem from '../components/RecentGameItem/RecentGameItem';
+import { GameButton } from '../styles/games';
+import { GameInfo } from '../types/type';
 
 const Home = () => {
   const gameData = useSelector((state) => state.game);
   const recentGames = useSelector((state) => state.recentGames);
   const account = useSelector((state) => state.account);
   const userData = useSelector((state) => state.auth);
+  const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log('Recent Games em Home ', recentGames);
@@ -56,7 +58,31 @@ const Home = () => {
             <P italic={true} style={{ marginRight: 15 }}>
               Filters
             </P>
-            <GameSelect />
+            <div>
+              {gameData.types.map((item) => (
+                <GameButton
+                  key={item.id}
+                  color={item.color}
+                  onClick={() => {
+                    if (selectedGame?.type === item.type) {
+                      setSelectedGame(undefined);
+                    } else {
+                      setSelectedGame(item);
+                    }
+                  }}
+                  style={{
+                    backgroundColor: `${
+                      selectedGame?.type === item.type ? item.color : 'inherit'
+                    }`,
+                    color: `${
+                      selectedGame?.type === item.type ? '#FFF' : item.color
+                    }`,
+                  }}
+                >
+                  {item.type}
+                </GameButton>
+              ))}
+            </div>
           </div>
         </div>
         <SendButton color="green" onClick={() => navigate('/new-bet')}>
@@ -67,15 +93,32 @@ const Home = () => {
         {recentGames.length === 0 && (
           <P italic={true}>You have no recent games</P>
         )}
-        {recentGames.length !== 0 &&
+        {recentGames.length > 0 &&
+          !selectedGame &&
           recentGames.map((item) => (
             <RecentGameItem
+              key={item.id}
               numbers={item.choosen_numbers}
               date={item.created_at}
               price={item.price}
               game={item.type.type}
             />
           ))}
+        {recentGames.length > 0 &&
+          selectedGame &&
+          recentGames.map((item) => {
+            if (item.type.type === selectedGame.type) {
+              return (
+                <RecentGameItem
+                  key={item.id}
+                  numbers={item.choosen_numbers}
+                  date={item.created_at}
+                  price={item.price}
+                  game={item.type.type}
+                />
+              );
+            }
+          })}
       </div>
     </PrivateRoutesLayout>
   );

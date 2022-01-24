@@ -13,9 +13,6 @@ const RecentGameItem = (props: Props) => {
   const color =
     gameData.types.find((item) => item.type === props.game)?.color || '#707070';
   const data = new Date(props.date);
-  const dataString = `${data.getDate()}/${
-    data.getMonth() + 1
-  }/${data.getFullYear()}`;
   const price = props.price.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',
@@ -24,7 +21,7 @@ const RecentGameItem = (props: Props) => {
     <RecentGameDiv color={color}>
       <Title fontSize={20}>{props.numbers}</Title>
       <P>
-        {dataString} - {`(${price})`}
+        {data.toLocaleDateString()} - {`(${price})`}
       </P>
       <P bold={true} fontSize={20} italic={true} color={color}>
         {props.game}

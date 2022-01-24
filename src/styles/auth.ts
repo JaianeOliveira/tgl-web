@@ -74,3 +74,54 @@ export const AuthInput = styled.input`
     font-weight: bold;
   }
 `;
+export const UserData = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p:first-of-type {
+    margin-bottom: 2vh;
+  }
+  p {
+    margin-bottom: 1.5vh;
+  }
+  img {
+    height: 15vh;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    margin-bottom: 5vh;
+  }
+  .edit_userData {
+    background: #b5c401;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 3px 25px #00000014;
+    font-size: 16px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 10vw;
+    margin-top: 5vh;
+  }
+  p:last-of-type {
+    margin-bottom: 5vh;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    input {
+      color: #9d9d9d;
+      font-size: 16px;
+      font-style: italic;
+      padding: 8px;
+      width: 50vw;
+      border: none;
+      outline: none;
+      background: none;
+      border-bottom: 2px solid #ebebeb;
+      margin-bottom: 3vh;
+    }
+  }
+`;

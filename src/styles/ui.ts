@@ -89,8 +89,8 @@ export const Header = styled.header`
   padding: 0 10%;
   align-items: center;
   border-bottom: 2px solid #ebebeb;
-  height: 10vh;
   justify-content: space-between;
+  max-height: 15vh;
 
   .name {
     display: flex;
@@ -103,8 +103,6 @@ export const Header = styled.header`
     border-radius: 6px;
     width: auto;
     background: #b5c401;
-  }
-  .modal {
   }
 
   div {
@@ -119,8 +117,6 @@ export const Body = styled.div`
   height: auto;
   .recentGames {
     width: auto;
-    max-height: 60vh;
-    overflow-y: scroll;
   }
   .gameArea {
     max-width: 55vw;
@@ -157,7 +153,7 @@ export const P = styled.p<{
 }>`
   color: ${(props) => (props.color ? props.color : '#868686')};
   font-style: ${(props) => (props.italic ? 'italic' : 'none')};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : '17px')};
+  font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : '17px')};
   font-weight: ${(props) => (props.bold ? 'bold' : 'normal')};
 
   span {

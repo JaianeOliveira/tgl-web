@@ -1,12 +1,13 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import NewBet from "./pages/NewBet";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getData } from "./redux/gameSlice";
-import { useDispatch } from "react-redux";
-import { getGameData } from "./services/api";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import NewBet from './pages/NewBet';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getData } from './redux/gameSlice';
+import { useDispatch } from 'react-redux';
+import { getGameData } from './services/api';
+import Account from './pages/Account';
 
 const App = () => {
   const authSelector = useSelector((state) => state.auth);
@@ -31,6 +32,10 @@ const App = () => {
       <Route
         path="/new-bet"
         element={authSelector.token ? <NewBet /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/account"
+        element={authSelector.token ? <Account /> : <Navigate to="/login" />}
       />
     </Routes>
   );

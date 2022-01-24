@@ -99,15 +99,11 @@ const NewBet = () => {
     }
   };
 
-  if (!selectedGame) {
-    return (
-      <>
-        <P>Ops, algo deu errado!</P>
-
-        {navigate('/home')}
-      </>
-    );
-  }
+  useEffect(() => {
+    if (!selectedGame) {
+      navigate('/home');
+    }
+  }, [navigate, selectedGame]);
 
   return (
     <PrivateRoutesLayout>

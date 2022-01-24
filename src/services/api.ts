@@ -156,3 +156,21 @@ export const myAccount = async (token: string) => {
     })
     .catch((error) => alertError(error.response.data.message));
 };
+
+export const setUser = async (
+  data: { email: string; name: string },
+  token: string
+) => {
+  return api
+    .request({
+      method: 'PUT',
+      url: '/user/update',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    })
+    .then((response) => response.data);
+};
