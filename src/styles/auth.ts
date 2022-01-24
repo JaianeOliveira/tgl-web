@@ -102,6 +102,7 @@ export const UserData = styled.div`
     justify-content: space-evenly;
     width: 10vw;
     margin-top: 5vh;
+    cursor: pointer;
   }
   p:last-of-type {
     margin-bottom: 5vh;

@@ -71,6 +71,7 @@ export const SendButton = styled.button<{
   align-items: center;
   transition: 0.1s ease-in-out;
   cursor: pointer;
+  outline: none;
 
   .icon {
     margin: 0 13px;

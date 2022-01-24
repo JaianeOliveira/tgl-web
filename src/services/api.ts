@@ -174,3 +174,13 @@ export const setUser = async (
     })
     .then((response) => response.data);
 };
+
+export const sendLink = async (email: string) => {
+  return api.post('/reset', { email: email }).then((response) => response.data);
+};
+
+export const resetPassword = async (token: string, password: string) => {
+  return api
+    .post(`/reset/${token}`, { password: password })
+    .then((response) => response.data);
+};

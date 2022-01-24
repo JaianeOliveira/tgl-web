@@ -7,12 +7,12 @@ import { login } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { getRecentGames, loginFetch, newUser } from '../services/api';
 import { VscArrowRight, VscArrowLeft } from 'react-icons/vsc';
-import { postRequests } from '../services/api';
+import { sendLink, resetPassword } from '../services/api';
 import { myAccount } from '../services/api';
 import { updateUser } from '../redux/AccountSlice';
 import { useSelector } from 'react-redux';
 import { setRecentGames } from '../redux/recentGamesSlice';
-import { alertError } from '../components/Alerts/Alerts';
+import { alertError, alertSucess } from '../components/Alerts/Alerts';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-
   const [forgetPassword, setForgetPassword] = useState(false);
+  const [resetPasswordToken, setResetPasswordToken] = useState('');
   const [registration, setRegistration] = useState(false);
 
   const emailHandler = (e: any) => {
@@ -35,16 +35,40 @@ const Login = () => {
   };
   const forgetPasswordHandler = (e: any) => {
     e.preventDefault();
+    setEmail('');
+    setPassword('');
+    setName('');
     setForgetPassword(true);
   };
   const signupHandler = (e: any) => {
     e.preventDefault();
+    setEmail('');
+    setPassword('');
+    setName('');
     setRegistration(true);
   };
-  const sendLinkHandler = (e: any) => {
+  const sendLinkHandler = async (e: any) => {
     e.preventDefault();
-    postRequests('/reset', { email: email });
-    setEmail('');
+    await sendLink(email)
+      .then((response) => {
+        setResetPasswordToken(response.token);
+        setForgetPassword(false);
+        setEmail('');
+      })
+      .catch((error) => alertError(error.response.data.message));
+  };
+  const resetPasswordHandler = async (e: any) => {
+    e.preventDefault();
+    await resetPassword(resetPasswordToken, password)
+      .then(async (response) => {
+        await dispatch(updateUser(response));
+        setResetPasswordToken('');
+        setPassword('');
+        alertSucess('Senha alterada com sucesso');
+      })
+      .catch((error) => {
+        alertError(error.response.data.message);
+      });
   };
 
   const loginHandler = async (e: any) => {
@@ -75,20 +99,16 @@ const Login = () => {
   const registerHandler = (e: any) => {
     e.preventDefault();
     newUser({ email, password, name })
-      .then((response) => {
-        if (response.ok) {
-          loginFetch({ email, password }).then(() => {
-            dispatch(
-              login({
-                email: response.user.email,
-                user: response.user.name,
-                token: response.token.token,
-              })
-            );
-          });
-        }
+      .then(() => {
+        alertSucess('Usuário criado com sucesso');
+        setEmail('');
+        setPassword('');
+        setName('');
+        setRegistration(false);
       })
-      .then(() => navigate('/home'));
+      .catch((error) => {
+        alertError(error.reponse.data.message);
+      });
   };
 
   return (
@@ -97,7 +117,7 @@ const Login = () => {
         <AuthPageTitle />
       </section>
       <section>
-        {!forgetPassword && !registration && (
+        {!forgetPassword && !registration && !resetPasswordToken && (
           <>
             <Title textAlign="center" fontSize={35}>
               Authentication
@@ -155,6 +175,26 @@ const Login = () => {
               <VscArrowLeft className="icon" />
               Back
             </SendButton>
+          </>
+        )}
+        {resetPasswordToken && (
+          <>
+            <Title textAlign="center" fontSize={35}>
+              Reset Password
+            </Title>
+            <form>
+              <AuthCard>
+                <AuthInput
+                  type="text"
+                  placeholder="New Password"
+                  onChange={passwordHandler}
+                  value={password}
+                />
+                <SendButton color="green" onClick={resetPasswordHandler}>
+                  Reset Password <VscArrowRight className="icon" />
+                </SendButton>
+              </AuthCard>
+            </form>
           </>
         )}
         {registration && (
