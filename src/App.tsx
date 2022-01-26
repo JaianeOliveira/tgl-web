@@ -7,9 +7,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NewBet from './pages/NewBet';
 import Account from './pages/Account';
+import Admin from './pages/Admin';
 
 const App = () => {
   const authSelector = useSelector((state) => state.auth);
+  const account = useSelector((state) => state.account);
   const dispatch = useDispatch();
   useEffect(() => {
     getGameData().then((response) => {
@@ -35,6 +37,16 @@ const App = () => {
       <Route
         path="/account"
         element={authSelector.token ? <Account /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/games"
+        element={
+          authSelector.token && account.is_admin ? (
+            <Admin />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
       />
     </Routes>
   );

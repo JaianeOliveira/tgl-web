@@ -21,7 +21,7 @@ export const Title = styled.h1<{
 export const SendButton = styled.button<{
   color: string;
   fontSize?: number | false;
-  idPadding?: boolean | true;
+  noPadding?: boolean | true;
 }>`
   background: none;
   width: auto;
@@ -37,7 +37,7 @@ export const SendButton = styled.button<{
     }
     return '#707070';
   }};
-  padding: 30px;
+  padding: ${(props) => (!props.noPadding ? '30px' : '10px')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,6 +113,79 @@ export const Body = styled.div`
   height: auto;
   padding: 6vh 10vw;
 
+  .gamesPage {
+    button {
+      cursor: pointer;
+    }
+    h1 {
+      margin-bottom: 3vh;
+    }
+    p {
+      margin-top: 2vh;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      margin: 5vh 0;
+      div {
+        display: flex;
+        flex-direction: row;
+
+        button:first-child {
+          color: #b5c401;
+          padding-left: 0;
+        }
+      }
+      p {
+        margin-bottom: 3vh;
+      }
+      button {
+        margin-top: 5vh;
+      }
+      input {
+        background: none;
+        border: none;
+        padding: 10px;
+        border-bottom: 2px solid #dddddd;
+        width: 100%;
+        height: 8vh;
+        outline: none;
+        font-size: 1.7rem;
+        color: #707070;
+        font-style: italic;
+        font-weight: bold;
+        ::placeholder {
+          font-size: 1.7rem;
+          color: #9d9d9d;
+          font-style: italic;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .selectGame {
+      display: flex;
+      @media (max-width: 426px) {
+        flex-direction: column;
+        button {
+          width: 100%;
+          margin-bottom: 2vh;
+        }
+      }
+    }
+    .actionButtons {
+      display: flex;
+      margin-top: 4vh;
+
+      @media (max-width: 426px) {
+        flex-direction: column;
+      }
+      button:first-child {
+        padding-left: 0;
+      }
+    }
+  }
   .newBet_page {
     display: flex;
 

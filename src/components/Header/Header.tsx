@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { logout } from '../../redux/authSlice';
 import { VscArrowRight } from 'react-icons/vsc';
 import { Title, Header, SendButton } from '../../styles/ui';
 
 const HeaderBar = () => {
+  const account = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +25,15 @@ const HeaderBar = () => {
             onClick={() => navigate('/home')}
           >
             Home
+          </SendButton>
+        )}
+        {account.is_admin && (
+          <SendButton
+            color="gray"
+            fontSize={2}
+            onClick={() => navigate('/games')}
+          >
+            Games
           </SendButton>
         )}
         <SendButton

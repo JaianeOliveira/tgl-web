@@ -133,3 +133,69 @@ export const resetPassword = async (token: string, password: string) => {
     .post(`/reset/${token}`, { password: password })
     .then((response) => response.data);
 };
+
+export const deleteGame = async (token: string, gameId: number) => {
+  return api
+    .delete(`/admin/delete-game/${gameId}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => alertError(error.response.data.message));
+};
+
+export const updateGame = async (
+  token: string,
+  gameId: number,
+  data: {
+    type: string;
+    description: string;
+    range: number;
+    price: number;
+    max_number: number;
+    color: string;
+  }
+) => {
+  return api
+    .request({
+      method: 'PUT',
+      url: `/admin/update-game/${gameId}`,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    })
+    .then((response) => response.data)
+    .catch((error) => alertError(error.respone.data.message));
+};
+
+export const createNewGame = async (
+  token: string,
+  data: {
+    type: string;
+    description: string;
+    range: number;
+    price: number;
+    max_number: number;
+    color: string;
+  }
+) => {
+  return api
+    .request({
+      method: 'POST',
+      url: '/admin/create-game',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    })
+    .then((response) => response.data)
+    .catch((error) => alertError(error.response.data.message));
+};

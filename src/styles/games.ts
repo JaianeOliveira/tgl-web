@@ -28,6 +28,8 @@ export const NewBetTitle = styled.p`
 `;
 
 export const GameButton = styled.button<{ color: string }>`
+  background: none;
+  color: ${(props) => props.color};
   border: 2px solid ${(props) => props.color};
   font-size: 14px;
   font-weight: bold;
