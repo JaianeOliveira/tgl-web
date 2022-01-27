@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRecentGames } from '../redux/recentGamesSlice';
 import { useEffect, useState } from 'react';
-import { getRecentGames, myAccount } from '../services/api';
-import { updateUser } from '../redux/AccountSlice';
+import { getRecentGames } from '../services/api';
 import RecentGameItem from '../components/RecentGameItem/RecentGameItem';
 import { GameButton } from '../styles/games';
 import { Title, P, SendButton } from '../styles/ui';
@@ -14,7 +13,6 @@ import { GameInfo } from '../types/type';
 const Home = () => {
   const gameData = useSelector((state) => state.game);
   const recentGames = useSelector((state) => state.recentGames);
-  const account = useSelector((state) => state.account);
   const userData = useSelector((state) => state.auth);
   const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>();
   const navigate = useNavigate();
@@ -23,9 +21,6 @@ const Home = () => {
   useEffect(() => {
     getRecentGames(`${userData.token}`).then((response) => {
       dispatch(setRecentGames(response));
-    });
-    myAccount(`${userData.token}`).then((response) => {
-      dispatch(updateUser(response));
     });
   }, [dispatch, userData.token]);
 

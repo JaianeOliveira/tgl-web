@@ -3,9 +3,11 @@ import axios from 'axios';
 
 import { alertError } from '../components/Alerts/Alerts';
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: 'http://127.0.0.1:3333',
 });
+
+export default api;
 
 export const getGameData = async (): Promise<{
   min_cart_value: number;
@@ -37,8 +39,8 @@ export const newUser = async (data: {
 }) => {
   return api
     .post('/user/create', data)
-    .then(({ data }) => {
-      return data;
+    .then((response) => {
+      return response.status;
     })
     .catch((error) => {
       alertError(error.response.data.error.message);

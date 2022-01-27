@@ -2,17 +2,18 @@ import { useState } from 'react';
 import AuthPageTitle from '../components/AuthPageTitle/AuthPageTitle';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginFetch, newUser, sendLink, resetPassword } from '../services/api';
-import { VscArrowRight, VscArrowLeft } from 'react-icons/vsc';
 import { updateUser } from '../redux/AccountSlice';
 import { alertError, alertSucess } from '../components/Alerts/Alerts';
-import { AuthCard, AuthInput, AuthPageLayout } from '../styles/auth';
-import { Title, SendButton } from '../styles/ui';
-import LoginForm from '../components/Forms/LoginForm';
-import ResetPassword from '../components/Forms/ResetPassword';
-import NewPassword from '../components/Forms/NewPassword';
-import Registration from '../components/Forms/Registration';
+import { AuthPageLayout } from '../styles/auth';
+import {
+  LoginForm,
+  ResetPassword,
+  NewPassword,
+  Registration,
+} from '../components';
+import { userServices } from '../services';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const Login = () => {
   const [forgetPassword, setForgetPassword] = useState(false);
   const [resetPasswordToken, setResetPasswordToken] = useState('');
   const [registration, setRegistration] = useState(false);
+
+  const { createUser } = userServices();
 
   const emailHandler = (e: any) => {
     setEmail(e.target.value);
@@ -136,8 +139,8 @@ const Login = () => {
     if (emailValidator(email)) {
       if (passwordValidator(password)) {
         newUser({ email, password, name })
-          .then(() => {
-            alertSucess('Usuário criado com sucesso');
+          .then((response) => {
+            if (response === 200) alertSucess('Usuário criado com sucesso');
             setEmail('');
             setPassword('');
             setName('');

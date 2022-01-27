@@ -38,6 +38,7 @@ export const GameButton = styled.button<{ color: string }>`
   padding: 7px 25px;
   margin: 0 25px 0 0;
   cursor: pointer;
+  height: 34px;
   transition: 0.15s ease-in-out;
   :hover {
     filter: brightness(0.95);
