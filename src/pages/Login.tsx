@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AuthPageTitle from '../components/AuthPageTitle/AuthPageTitle';
+import AuthPageTitle from '../components/AuthPageTitle';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';

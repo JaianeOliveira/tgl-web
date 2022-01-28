@@ -1,4 +1,4 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
+import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

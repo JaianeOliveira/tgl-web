@@ -1,10 +1,10 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
+import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { alertError, alertWarning } from '../components/Alerts/Alerts';
 import { addItem } from '../redux/cartSlice';
-import Cart from '../components/Cart/Cart';
+import Cart from '../components/Cart';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { GameInfo } from '../types/type';
 import {

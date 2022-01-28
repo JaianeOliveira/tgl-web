@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import CartItem from '../CartItem/CartItem';
+import CartItem from '../CartItem';
 import { newBet } from '../../services/api';
 import { clearCart } from '../../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { alertError, alertSucess } from '../Alerts/Alerts';
+import { AlertError, AlertSuccess } from '../index';
 import { VscArrowRight } from 'react-icons/vsc';
 import { P, SendButton } from '../../styles/ui';
 import { CartElem, CartTitle } from '../../styles/games';
@@ -30,10 +30,10 @@ const Cart = () => {
     newBet(data, token)
       .then((response) => {
         dispatch(clearCart());
-        alertSucess('Saved bet!');
+        AlertSuccess('Saved bet!');
         navigate('/home');
       })
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
   };
 
   return (

@@ -1,4 +1,4 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout/PrivateRoutesLayout';
+import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Title, P, SendButton } from '../styles/ui';

@@ -1,5 +1,5 @@
-import HeaderBar from '../Header/Header';
-import FooterBar from '../Footer/Footer';
+import HeaderBar from '../Header';
+import FooterBar from '../Footer';
 import { Body } from '../../styles/ui';
 
 const PrivateRoutesLayout = (props: any) => {
