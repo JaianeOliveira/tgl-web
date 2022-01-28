@@ -1,14 +1,13 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
 import { VscArrowRight } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setRecentGames } from '../redux/recentGamesSlice';
+import { setRecentGames } from '../../redux/recentGamesSlice';
 import { useEffect, useState } from 'react';
-import { getRecentGames } from '../services/api';
-import RecentGameItem from '../components/RecentGameItem';
-import { GameButton } from '../styles/games';
-import { Title, P, SendButton } from '../styles/ui';
-import { GameInfo } from '../types/type';
+import { getRecentGames } from '../../services/api';
+import { RecentGameItem, PrivateRoutesLayout } from '../../components';
+import { GameButton } from '../../styles/games';
+import { Title, P, SendButton } from '../../styles/ui';
+import { GameInfo } from '../../types/type';
 
 const Home = () => {
   const gameData = useSelector((state) => state.game);

@@ -1,19 +1,18 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
+import PrivateRoutesLayout from '../../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Title, P, SendButton } from '../styles/ui';
-import { GameButton } from '../styles/games';
-import { AuthInput } from '../styles/auth';
-import { useState, useRef } from 'react';
-import { GameInfo } from '../types/type';
+import { Title, P, SendButton } from '../../styles/ui';
+import { GameButton } from '../../styles/games';
+import { useState } from 'react';
+import { GameInfo } from '../../types/type';
 import {
   deleteGame,
   updateGame,
   createNewGame,
   getGameData,
-} from '../services/api';
-import { getData } from '../redux/gameSlice';
-import { alertError, alertSucess } from '../components/Alerts/Alerts';
+} from '../../services/api';
+import { getData } from '../../redux/gameSlice';
+import { AlertError, AlertSuccess } from '../../components';
 
 const Admin = () => {
   const dipatch = useDispatch();
@@ -41,27 +40,27 @@ const Admin = () => {
 
   const formIsValid = () => {
     if (type.trim() === '') {
-      alertError('Digite um nome válido para o game');
+      AlertError('Digite um nome válido para o game');
       return;
     }
     if (description.trim() === '') {
-      alertError('Digite uma descrição válida para o game.');
+      AlertError('Digite uma descrição válida para o game.');
       return;
     }
     if (range === 0) {
-      alertError('Dê um range para o game');
+      AlertError('Dê um range para o game');
       return;
     }
     if (max_number === 0) {
-      alertError('Dê uma quantidade máxima de números para o game');
+      AlertError('Dê uma quantidade máxima de números para o game');
       return;
     }
     if (!(color.includes('#', 0) && color.length === 7)) {
-      alertError('Digite uma cor válida');
+      AlertError('Digite uma cor válida');
       return;
     }
     if (price === 0) {
-      alertError('Dê um preço para o game');
+      AlertError('Dê um preço para o game');
       return;
     }
   };
@@ -83,11 +82,11 @@ const Admin = () => {
       return;
     }
     await createNewGame(user.token, newGame)
-      .then(() => alertSucess('Game criado com sucesso.'))
-      .catch((error) => alertError(error.response.data.message));
+      .then(() => AlertSuccess('Game criado com sucesso.'))
+      .catch((error) => AlertError(error.response.data.message));
     await getGameData()
       .then((response) => dipatch(getData(response)))
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
 
     setType('');
     setDescription('');
@@ -117,12 +116,12 @@ const Admin = () => {
     }
     await updateGame(user.token, selectedGame.id, newGame)
       .then((response) => {
-        alertSucess('Game Atualizado');
+        AlertSuccess('Game Atualizado');
       })
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
     await getGameData()
       .then((response) => dipatch(getData(response)))
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
 
     setType('');
     setDescription('');
@@ -142,12 +141,12 @@ const Admin = () => {
     }
     await deleteGame(user.token, selectedGame.id)
       .then((response) => {
-        alertSucess(`Game deletado com sucesso. ${response}`);
+        AlertSuccess(`Game deletado com sucesso. ${response}`);
       })
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
     await getGameData()
       .then((response) => dipatch(getData(response)))
-      .catch((error) => alertError(error.response.data.message));
+      .catch((error) => AlertError(error.response.data.message));
   };
 
   return (

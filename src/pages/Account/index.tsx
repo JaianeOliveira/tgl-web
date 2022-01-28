@@ -1,13 +1,13 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
+import PrivateRoutesLayout from '../../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUser, myAccount } from '../services/api';
-import { updateUser } from '../redux/AccountSlice';
+import { setUser } from '../../services/api';
+import { updateUser } from '../../redux/AccountSlice';
 import { VscEdit } from 'react-icons/vsc';
-import { alertError, alertSucess } from '../components/Alerts/Alerts';
-import { P, Card, SendButton } from '../styles/ui';
-import { UserData } from '../styles/auth';
+import { AlertError, AlertSuccess } from '../../components';
+import { P, Card, SendButton } from '../../styles/ui';
+import { UserData } from '../../styles/auth';
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -35,9 +35,9 @@ const Account = () => {
         const response = await setUser({ email, name }, userData.token);
         await dispatch(updateUser(response));
         setEdit(false);
-        alertSucess('Dados alterados com sucesso');
+        AlertSuccess('Dados alterados com sucesso');
       } else {
-        alertError('Digite um email válido.');
+        AlertError('Digite um email válido.');
       }
     }
   };

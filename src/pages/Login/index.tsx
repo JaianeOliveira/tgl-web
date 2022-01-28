@@ -1,19 +1,25 @@
 import { useState } from 'react';
-import AuthPageTitle from '../components/AuthPageTitle';
+import AuthPageTitle from '../../components/AuthPageTitle';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../redux/authSlice';
+import { login } from '../../redux/authSlice';
 import { useDispatch } from 'react-redux';
-import { loginFetch, newUser, sendLink, resetPassword } from '../services/api';
-import { updateUser } from '../redux/AccountSlice';
-import { alertError, alertSucess } from '../components/Alerts/Alerts';
-import { AuthPageLayout } from '../styles/auth';
+import {
+  loginFetch,
+  newUser,
+  sendLink,
+  resetPassword,
+} from '../../services/api';
+import { updateUser } from '../../redux/AccountSlice';
+import { AuthPageLayout } from '../../styles/auth';
 import {
   LoginForm,
   ResetPassword,
   NewPassword,
   Registration,
-} from '../components';
-import { userServices } from '../services';
+  AlertError,
+  AlertSuccess,
+} from '../../components';
+import { userServices } from '../../services';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,9 +90,9 @@ const Login = () => {
           setForgetPassword(false);
           setEmail('');
         })
-        .catch((error) => alertError(error.response.data.message));
+        .catch((error) => AlertError(error.response.data.message));
     } else {
-      alertError('Digite um email válido.');
+      AlertError('Digite um email válido.');
     }
   };
 
@@ -98,13 +104,13 @@ const Login = () => {
           await dispatch(updateUser(response));
           setResetPasswordToken('');
           setPassword('');
-          alertSucess('Senha alterada com sucesso');
+          AlertSuccess('Senha alterada com sucesso');
         })
         .catch((error) => {
-          alertError(error.response.data.message);
+          AlertError(error.response.data.message);
         });
     } else {
-      alertError(
+      AlertError(
         'Digite uma senha válida. É necessário pelo menos oito caracteres sendo eles pelo menos um número e uma letra.'
       );
     }
@@ -130,7 +136,7 @@ const Login = () => {
         navigate('/home');
       })
       .catch((error) => {
-        alertError(error.response.data.message);
+        AlertError(error.response.data.message);
       });
   };
 
@@ -140,22 +146,22 @@ const Login = () => {
       if (passwordValidator(password)) {
         newUser({ email, password, name })
           .then((response) => {
-            if (response === 200) alertSucess('Usuário criado com sucesso');
+            if (response === 200) AlertSuccess('Usuário criado com sucesso');
             setEmail('');
             setPassword('');
             setName('');
             setRegistration(false);
           })
           .catch((error) => {
-            alertError(error.reponse.data.message);
+            AlertError(error.reponse.data.message);
           });
       } else {
-        alertError(
+        AlertError(
           'Digite uma senha válida. É necessário pelo menos oito dígitos sendo pelo menos um número e uma letra.'
         );
       }
     } else {
-      alertError('Digite um email válido');
+      AlertError('Digite um email válido');
     }
   };
 

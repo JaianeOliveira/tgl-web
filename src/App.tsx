@@ -5,7 +5,7 @@ import { getData } from './redux/gameSlice';
 import { getGameData } from './services/api';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import NewBet from './pages/NewBet';
+import NewBet from './pages/NewBet/NewBet';
 import Account from './pages/Account';
 import Admin from './pages/Admin';
 

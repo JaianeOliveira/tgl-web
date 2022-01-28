@@ -1,20 +1,23 @@
-import PrivateRoutesLayout from '../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { alertError, alertWarning } from '../components/Alerts/Alerts';
-import { addItem } from '../redux/cartSlice';
-import Cart from '../components/Cart';
+import {
+  AlertError,
+  AlertWarning,
+  PrivateRoutesLayout,
+  Cart,
+} from '../../components';
+import { addItem } from '../../redux/cartSlice';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { GameInfo } from '../types/type';
+import { GameInfo } from '../../types/type';
 import {
   AddToCartButton,
   BottomButton,
   NewBetTitle,
   NumberButton,
   GameButton,
-} from '../styles/games';
-import { P } from '../styles/ui';
+} from '../../styles/games';
+import { P } from '../../styles/ui';
 
 const NewBet = () => {
   const navigate = useNavigate();
@@ -70,9 +73,9 @@ const NewBet = () => {
           cartItem.gameName === selectedGame?.type
       )
     ) {
-      alertError('You already made that bet.');
+      AlertError('You already made that bet.');
     } else {
-      alertWarning('Complete your game.');
+      AlertWarning('Complete your game.');
     }
   };
 
@@ -90,7 +93,7 @@ const NewBet = () => {
       const value = Number(e.currentTarget.value);
       setSelNumbers((prevState) => [...prevState, value]);
     } else {
-      alertError('Maximum amount reached');
+      AlertError('Maximum amount reached');
     }
   };
 
