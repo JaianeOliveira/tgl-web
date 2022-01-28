@@ -2,7 +2,7 @@ import PrivateRoutesLayout from '../../components/PrivateRoutesLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from '../../services/api';
+import { userServices } from '../../services';
 import { updateUser } from '../../redux/AccountSlice';
 import { VscEdit } from 'react-icons/vsc';
 import { AlertError, AlertSuccess } from '../../components';
@@ -17,6 +17,7 @@ const Account = () => {
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(account.name);
   const [email, setEmail] = useState(account.email);
+  const { updateMyUser } = userServices();
   const date = new Date(account.created_at);
 
   const emailValidator = (email: string) => {
@@ -32,7 +33,7 @@ const Account = () => {
     e.preventDefault();
     if (userData.token) {
       if (emailValidator(email)) {
-        const response = await setUser({ email, name }, userData.token);
+        const response = await updateMyUser({ email, name }, userData.token);
         await dispatch(updateUser(response));
         setEdit(false);
         AlertSuccess('Dados alterados com sucesso');

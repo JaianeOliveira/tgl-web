@@ -1,3 +1,6 @@
 import userServices from './userServices';
+import betsServices from './betsServices';
+import gamesServices from './gamesServices';
+import authServices from './authServices';
 
-export { userServices };
+export { userServices, authServices, gamesServices, betsServices };

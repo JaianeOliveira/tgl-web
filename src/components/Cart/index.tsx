@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../CartItem';
-import { newBet } from '../../services/api';
+import { betsServices } from '../../services/';
 import { clearCart } from '../../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { AlertError, AlertSuccess } from '../index';
@@ -13,6 +13,7 @@ const Cart = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { newBet } = betsServices();
 
   const saveNewBet = () => {
     const data: { game_id: number; numbers: number[] }[] = [];

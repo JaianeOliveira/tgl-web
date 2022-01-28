@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRecentGames } from '../../redux/recentGamesSlice';
 import { useEffect, useState } from 'react';
-import { getRecentGames } from '../../services/api';
+import { betsServices } from '../../services';
 import { RecentGameItem, PrivateRoutesLayout } from '../../components';
 import { GameButton } from '../../styles/games';
 import { Title, P, SendButton } from '../../styles/ui';
@@ -16,12 +16,13 @@ const Home = () => {
   const [selectedGame, setSelectedGame] = useState<GameInfo | undefined>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { listBet } = betsServices();
 
   useEffect(() => {
-    getRecentGames(`${userData.token}`).then((response) => {
+    listBet(`${userData.token}`).then((response) => {
       dispatch(setRecentGames(response));
     });
-  }, [dispatch, userData.token]);
+  }, [dispatch, userData.token, listBet]);
 
   return (
     <PrivateRoutesLayout>

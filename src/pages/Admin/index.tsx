@@ -5,12 +5,7 @@ import { Title, P, SendButton } from '../../styles/ui';
 import { GameButton } from '../../styles/games';
 import { useState } from 'react';
 import { GameInfo } from '../../types/type';
-import {
-  deleteGame,
-  updateGame,
-  createNewGame,
-  getGameData,
-} from '../../services/api';
+import { gamesServices } from '../../services';
 import { getData } from '../../redux/gameSlice';
 import { AlertError, AlertSuccess } from '../../components';
 
@@ -33,6 +28,7 @@ const Admin = () => {
   const [criarGame, setCriarGame] = useState(false);
   const [update, setUpdate] = useState(false);
 
+  const { deleteGame, updateGame, createGame, listGames } = gamesServices();
   if (!selectedGame) {
     navigate('/home');
     return <P>Ops, algo deu errado</P>;
@@ -65,7 +61,7 @@ const Admin = () => {
     }
   };
 
-  const createGame = async (e: any) => {
+  const newGame = async (e: any) => {
     e.preventDefault();
 
     formIsValid();
@@ -81,10 +77,10 @@ const Admin = () => {
     if (!user.token) {
       return;
     }
-    await createNewGame(user.token, newGame)
+    await createGame(user.token, newGame)
       .then(() => AlertSuccess('Game criado com sucesso.'))
       .catch((error) => AlertError(error.response.data.message));
-    await getGameData()
+    await listGames()
       .then((response) => dipatch(getData(response)))
       .catch((error) => AlertError(error.response.data.message));
 
@@ -119,7 +115,7 @@ const Admin = () => {
         AlertSuccess('Game Atualizado');
       })
       .catch((error) => AlertError(error.response.data.message));
-    await getGameData()
+    await listGames()
       .then((response) => dipatch(getData(response)))
       .catch((error) => AlertError(error.response.data.message));
 
@@ -144,7 +140,7 @@ const Admin = () => {
         AlertSuccess(`Game deletado com sucesso. ${response}`);
       })
       .catch((error) => AlertError(error.response.data.message));
-    await getGameData()
+    await listGames()
       .then((response) => dipatch(getData(response)))
       .catch((error) => AlertError(error.response.data.message));
   };
@@ -182,7 +178,7 @@ const Admin = () => {
         </div>
         {criarGame && (
           <div>
-            <form onSubmit={createGame}>
+            <form onSubmit={newGame}>
               <P italic={true} fontSize={2.4}>
                 New Game
               </P>
